@@ -6,13 +6,13 @@
 - B.E., Mechanical Engineering | Birla Institute of Technology and Science Pilani, India (Aug 2016 – May 2020)
 
 ## Work Experience
-** Senior Analyst, Product Development @ American Express, India (Aug 2022 – May 2024) ** 
+**Senior Analyst, Product Development @ American Express, India (Aug 2022 – May 2024)** 
                                                                                                           
 -	Enhanced an XGBoost-based credit risk model by orchestrating a comprehensive analysis of its effectiveness and collaborating with the Data Science team to refine its predictive logic. This initiative directly led to the recovery of $14.7MM by significantly improving default prediction accuracy.
 -	Engineered and deployed robust, end-to-end ETL pipelines to construct and enrich training datasets for the updated credit risk model. Sourced and integrated data from multiple systems to create novel features, providing the foundational data structure that enabled the model's success.
 -	Architected and implemented an automated daily reporting system to continuously monitor live model performance. This system provided actionable insights to stakeholders, enabling the proactive identification and rapid mitigation of potential performance degradation or data drift issues.
 
-** Programmer Analyst, Product Development @ American Express, India (Aug 2020 – Jul 2022) ** 
+**Programmer Analyst, Product Development @ American Express, India (Aug 2020 – Jul 2022)** 
 -	Led a team of 7 in the successful migration and enhancement of over 300 critical credit decision variables from a legacy Teradata system to a modern Hadoop big data framework. This complex initiative culminated in the decommissioning of the legacy infrastructure, achieving $50MM in annual operational cost savings.
 -	Spearheaded the end-to-end migration of the mission-critical Merchant Exposure Calculation system to a scalable big data platform, an achievement recognized with the Q2 Star Award. The new architecture reduced data processing time by 25% and streamlined a complex codebase, improving system maintainability and future scalability.
 
