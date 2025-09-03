@@ -25,6 +25,8 @@
 -	Addressed non-linear object motion and high sensor noise by integrating a physics-based Constant Turn Rate and Velocity (CTRV) model, ensuring robust tracking despite frequent missed detections.
 -	Mitigated severe particle degeneracy by implementing an Auxiliary Particle Filter (APF), which doubled the effective sample size (100% average increase) over a standard Bootstrap Filter and significantly enhanced tracker stability.
 
+**[Read More Details →](/projects/particle-filter/)**
+
 ### Autonomous Human Following Robot
 -	Architected and deployed a real-time human-following system on a 3-wheeled omnidirectional robot, leveraging ROS for control, an NVIDIA Jetson Nano for onboard computation, and an RGB-D camera for perception.
 -	Enhanced target persistence by integrating a Simple Online Realtime Tracking (SORT) algorithm with a custom-developed re-identification module, using color histogram features to successfully maintain tracking through temporary occlusions.
