@@ -36,6 +36,7 @@
 
 
 ## Publications
+![Tracker Demo](/media/glmb_5_gif.gif)
 ### IEEE MILCOM 2025 - GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 -	Created the first fully vectorized and scalable implementation of a Random Finite Set (RFS) based Multi Sensor Sequential Monte Carlo (SMC) Generalized Labelled Multi Bernoulli filter capable of handling one or more detections from each sensor per object. 
 -	Innovated a novel, measurement-focused Categorical sampling method to replace the computationally expensive and sequential Gibbs sampling bottleneck, enabling massive parallelization of the track-to-measurement assignment step.
