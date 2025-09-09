@@ -12,4 +12,4 @@ permalink: /projects/particle-filter/
 -	Mitigated severe particle degeneracy by implementing an Auxiliary Particle Filter (APF), which doubled the effective sample size (100% average increase) over a standard Bootstrap Filter and significantly enhanced tracker stability.
 
 <br>
-[← Back to Home](/)
+[← Back to Home]({{ site.baseurl }}/)
