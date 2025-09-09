@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Particle Filter Tracker Project
-permalink: {{ site.baseurl }}/projects/particle-filter/
+permalink: /projects/particle-filter/
 ---
 
 ## Particle Filter based Tracker for Geospatial Tracking
