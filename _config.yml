@@ -2,3 +2,4 @@ title: Sidisha Shyam Barik
 logo: /media/photo_3.png
 description: Hi!
 theme: jekyll-theme-minimal
+baseurl: "/portfolio"
