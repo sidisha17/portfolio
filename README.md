@@ -1,6 +1,6 @@
 # A little bit about me
 
-[Work Experience](#work-experience) • [Projects](#projects) • [Publications](#publications) • [Education](#education)
+[Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
 
 ## Education
 - M.S., Computer Science | University of Massachusetts, Amherst (Aug 2024 - May 2026)
