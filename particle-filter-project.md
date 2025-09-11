@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: Particle Filter Tracker Project
 permalink: /projects/particle-filter/
 ---
