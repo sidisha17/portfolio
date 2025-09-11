@@ -4,7 +4,7 @@ title: Particle Filter Tracker Project
 permalink: /projects/particle-filter/
 ---
 
-## Smart Tracking: From Pixels to a Path with Particle Filters
+##  Particle Filter based Tracker for Geospatial Tracking
 
 Tracking a vehicle accurately is a classic challenge in robotics and computer vision. In a recent project, I explored how to build a smarter tracking system by combining traditional Bayesian filtering with modern deep learning principles and real-world environmental knowledge.
 
