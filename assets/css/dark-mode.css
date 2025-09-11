@@ -41,3 +41,31 @@ body.dark-mode .theme-toggle {
   color: #fff;
   border-color: #555;
 }
+
+/* Styles for the new blog post header */
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+}
+
+.post-header .header-title a {
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* Overrides the fixed position for the theme toggle on post pages */
+.post-header .theme-toggle {
+  position: static;
+  top: auto;
+  right: auto;
+}
+
+/* Dark mode adjustments for the new header */
+body.dark-mode .post-header {
+  border-bottom: 1px solid #444;
+}
