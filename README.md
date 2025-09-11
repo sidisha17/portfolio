@@ -9,7 +9,7 @@
 
 ## Projects
 
-### Particle Filter based Tracker
+###  Particle Filter based Tracker for Geospatial Tracking
 I developed a sophisticated Bayesian particle filter to track objects in complex real-world geospatial data from a distributed camera network. To handle challenges like non-linear motion and sensor noise, I integrated a physics-based CTRV model. A key innovation was implementing an Auxiliary Particle Filter (APF), which successfully mitigated particle degeneracy by doubling the effective sample size, significantly boosting the tracker's stability and performance.
 
 **[Read More Details →]({{ site.baseurl }}/projects/particle-filter/)**
