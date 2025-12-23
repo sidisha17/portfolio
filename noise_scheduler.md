@@ -6,46 +6,91 @@ permalink: /projects/noise-schedule/
 
 ##  Exploring Noise Schedulers in DIffusion Models
 
-Tracking a vehicle accurately is a classic challenge in robotics and computer vision. In a recent project, I explored how to build a smarter tracking system by combining traditional Bayesian filtering with modern deep learning principles and real-world environmental knowledge.
-
-### The Problem: From a Bounding Box to a Coherent Trajectory
-
-The goal of this project was to track a single vehicle as it moved within an area monitored by a distributed network of four cameras. The process works like this:
-1.  Image Capture & Detection: The four cameras provide raw visual data, and a fine-tuned DETR (DEtection TRansformer) model draws bounding boxes around the vehicle.
-2.  World Projection: A camera model then takes these 2D bounding boxes and projects them into the real-world 2D plane. This gives us not just a position estimate, but also an associated uncertainty for each detection.
-3.  Bayesian Tracking: With a stream of these uncertain measurements, we need a robust algorithm to stitch them together. I chose a **Particle Filter (PF)** for this task.
-
-A standard Kalman Filter wouldn't work well here because it assumes linear models and Gaussian noise. Real-world vehicle maneuvers, which we can model with complex, non-linear dynamics like the **Constant Turn Rate and Velocity (CTRV) model**, violate these assumptions. Particle Filters shine in these scenarios because they can represent arbitrary, non-linear probability distributions.
+**Objective:** To investigate the impact of different noise schedulers (Cosine, Sine, Laplace) and formulations (VP vs. Sub-VP) on the training and sampling quality of Denoising Diffusion Probabilistic Models (DDPM).
+**Role:** Researcher (Course Project)
+**Tech Stack:** Python, PyTorch, CIFAR-10, Diffusion Models, UNet Architecture.
 
 ---
 
-### Additional Enhancements for Robustness
-
-To improve the standard Bootstrap Particle Filter, I explored two key enhancements.
-
-#### Auxiliary Particle Filter (APF)
-A standard PF predicts where particles will move *without* considering the latest measurement. If a vehicle turns unexpectedly, many particles can end up in a region of low likelihood, reducing the filter's effectiveness. The **Auxiliary Particle Filter (APF)** solves this by incorporating the current measurement into the proposal mechanis. It essentially "looks ahead" to see where the new measurement is, then gives priority to parent particles that are already heading in the right direction. This makes the filter more efficient and allows it to maintain accurate tracking even with a significantly lower number of particles, reducing computational cost.
-
-#### Birth and Death Model
-In scenarios with sparse detections, a tracker can lose its lock on a target. To handle this, I implemented a **birth and death model** for track management. Each track maintains a score that increases with consecutive, successful measurements and decreases when detections are missed. If the score drops below a threshold, the track is terminated ("death"). When a new measurement appears that can't be associated with an existing track, a new one is initiated ("birth").
+## 1. Motivation
+Diffusion models have gained significant attention for high-quality generation, but their performance depends heavily on the noise schedule—how noise is introduced during training and removed during sampling.
+* **The Problem:** Standard noise schedules often lead to suboptimal training. Analogous to human "eyes and ears," models are more sensitive to specific frequencies (noise levels).
+* **The Goal:** We aimed to identify whether allowing models to prioritize lower frequencies (higher noise levels) or high frequencies (texture) via specific schedulers yields better image quality. We specifically investigated if aggressively focusing on mid-range noise levels (using Laplace schedules) outperforms standard baselines.
 
 ---
 
-### The Deep Learning Twist: A Differentiable Particle Filter
+## 2. Methodology & Formulations
+We formulated all computations in terms of the Log-Signal-to-Noise Ratio ($\lambda = \log \text{SNR}$) to directly measure information obscured by noise and allow fair comparison across formulations.
 
-A traditional PF has parameters, like expected vehicle acceleration, that are usually set by hand. What if the filter could *learn* these parameters on its own?This is where I implemented an end-to-end **Differentiable Particle Filter (DPF)*.By making the algorithm differentiable, we can use backpropagation to automatically learn its internal parameter. This required two key modifications:
-* **The Re-parameterization Trick** to allow gradients to flow through the sampling step.
-* **Soft Resampling** to ensure gradients are not lost during the resampling step.
+### Formulations Tested
+* **Variance Preserving (VP):** The standard formulation where $\alpha(t) = \sqrt{1-\sigma(t)^2}$, ensuring total variance remains 1. We used the Cosine schedule as a baseline here.
+* **Sub-Variance Preserving (Sub-VP):** A formulation where $\alpha(t) = 1-\sigma(t)$, leading to $Var[x_t] \le 1$, which can potentially allow for straighter sampling paths.
 
-This approach bridges the gap between classic algorithms and deep learning, creating a system that can adapt and learn the specific dynamics of the vehicles it tracks.
+### Noise Schedulers
+We implemented and compared three distinct noise probability distributions $p(\lambda)$:
+1.  **Cosine Schedule (Baseline):** Used in the VP formulation, providing a broad distribution of noise levels.
+2.  **Sine Schedule (Custom for Sub-VP):** Since the standard Cosine math applies specifically to VP, we derived a "Sine" schedule for the Sub-VP formulation to mimic similar behavior.
+3.  **Laplace Schedule:** Focuses aggressively on specific noise levels (typically near $\lambda=0$), hypothesized to improve training efficiency.
 
-### The Flexibility Advantage: Particle Filters with Constraints
+> **Visualizing the Noise**
+>
+> ![Comparison of Noise Probability Density Functions](portfolio/media/noise-schedule.png)
+> *Figure: Comparison between the probability density functions of $\lambda$, $p(\lambda)$, in different model formulations. The Laplace schedule shows a much sharper peak compared to Cosine or Sine.*
 
-Another great strength of Particle Filters is their flexibility in incorporating environmental information. When detections are lost, particles propagated only by the motion model can drift into physically impossible areas, like off a road. I explored constraining particles within the known room boundaries to keep them grounded in reality. This was done in two ways:
-1.  **Particle Rejection:** After predicting, if a particle's new position is outside the boundary, it is rejected and re-sampled inside the valid area.
-2.  **Weight Modification:** Alternatively, an out-of-bounds particle is penalized by drastically reducing its importance weight, making it highly unlikely to survive the resampling phase.
+---
 
-While this project used simple room boundaries, I plan to extend this as part of my future work to handle complex road networks, making the tracker even more robust in the real world.
+## 3. Technical Implementation
+* **Architecture:** A standard DDPM with a UNet backbone (~100M parameters) trained from scratch on CIFAR-10.
+* **Training:** Batch size of 256 for 130 epochs using the AdamW optimizer with OneCycleLR.
+* **Sampling Strategies:** We compared Bayesian sampling against EDM (Elucidating Design Space), Cosine, and Shifted Cosine samplers.
+* **Evaluation:** We used **FID-3k** (calculated on 3000 images due to compute limitations) and a custom classification score tuned for CIFAR-10 for rapid iteration.
+
+---
+
+## 4. Key Results
+
+### Quantitative Analysis
+We found that the **Cosine VP (Baseline)** and **EDM Samplers** generally performed best in our limited-compute setting. While the Laplace schedule is theoretically superior for efficiency, the broad coverage of the Cosine schedule produced consistent results.
+
+| Model / Schedule | Formulation | FID Score (3k) |
+| :--- | :--- | :--- |
+| **Cosine (s=1)** | VP | **167.86** |
+| Laplace (b=3) | VP | 168.26 |
+| Sine (s=1) | Sub-VP | 168.75 |
+| Laplace (b=2) | Sub-VP | 169.61 |
+
+### Qualitative Analysis
+We observed that aggressively focusing too much on mid-range noise levels (as seen in certain Laplace configurations) did not yield significant visual improvements over the baseline in this specific setup.
+
+> **Generated Samples**
+>
+> <div style="display: flex; gap: 10px;">
+>   <div style="flex: 1;">
+>     <img src="portfolio/media/cosine.png" alt="Cosine VP Samples" />
+>     <p><em>Samples generated using Cosine (s=1) VP.</em></p>
+>   </div>
+>   <div style="flex: 1;">
+>     <img src="portfolio/media/laplace.png" alt="Laplace VP Samples" />
+>     <p><em>Samples generated using Laplace (b=2) VP.</em></p>
+>   </div>
+> </div>
+
+---
+
+## 5. Conclusion & Future Work
+In this study, we observed that while advanced schedules like Laplace offer theoretical benefits, the Cosine and EDM samplers remain highly robust baselines. The "Sine" schedule we derived for Sub-VP was competitive but did not outperform the VP formulation.
+
+**Future directions:**
+* **Expanded Training:** Extend training to millions of iterations to capture long-term trends.
+* **Robust Metrics:** Calculate FID on 50k samples to align with industry standards.
+* **Shifted Schedules:** Further investigate the trade-offs of focusing on specific noise levels (Shifted Left/Right).
+
+---
+
+### Read the Full Report
+For the complete mathematical derivations of the Sine/Laplace schedules and detailed training configurations, please view the full project report.
+
+[**Read Project Report (PDF)**](https://drive.google.com/file/d/1RvblAjdm7GzypdYL2D2kuFxjf2APbt4d/view?usp=drive_link)
 
 <br>
 [← Back to Home]({{ site.baseurl }}/)
