@@ -14,15 +14,13 @@ I developed a sophisticated Bayesian particle filter to track objects in complex
 
 **[Read More Details →]({{ site.baseurl }}/projects/particle-filter/)**
 
-### Autonomous Human Following Robot
-This project involved architecting a complete autonomous human-following system on a three-wheeled omnidirectional robot, using ROS for control and an NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even through temporary occlusions, I enhanced a SORT algorithm with a custom re-identification module. The final implementation features a finely-tuned Proportional (P) controller, achieving smooth, real-time tracking with a low system latency of just 1.2 seconds.
-
-**[Read More Details →]()**
-
 ### Exploring Noise Schedulers in Diffusion Models
 In this research, I conducted a deep comparative analysis of various noise schedulers to evaluate their effect on the training efficiency and sample quality of Denoising Diffusion Probabilistic Models (DDPMs). Building on these findings, I designed a novel sine-based noise scheduler that demonstrably outperformed the standard cosine scheduler, leading to significant improvements in generated image quality and a notable reduction in model training time.
 
 **[Read More Details →]({{ site.baseurl }}/projects/noise-schedule/)**
+
+### Autonomous Human Following Robot
+This project involved architecting a complete autonomous human-following system on a three-wheeled omnidirectional robot, using ROS for control and an NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even through temporary occlusions, I enhanced a SORT algorithm with a custom re-identification module. The final implementation features a finely-tuned Proportional (P) controller, achieving smooth, real-time tracking with a low system latency of just 1.2 seconds.
 
 ## Publications
 
@@ -32,7 +30,7 @@ In this research, I conducted a deep comparative analysis of various noise sched
 </div>
 My work on GPU-GLMB presents the first fully vectorized and scalable implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A core innovation was a novel, measurement-focused categorical sampling method that replaces the traditional Gibbs sampling bottleneck, enabling massive parallelization on GPUs. This new architecture is incredibly efficient, demonstrating that a 100x increase in scenario complexity results in only a 3x increase in processing time, making it highly effective for deployment on resource-constrained edge devices.
 
-**[Read More Details →]()**
+**[Read More Details →]({{ site.baseurl }}/projects/gpu-glmb/)**
 
 ## Work Experience
 
