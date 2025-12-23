@@ -4,11 +4,21 @@ title: Exploring Noise Schedulers in DIffusion Models
 permalink: /projects/noise-schedule/
 ---
 
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+
 ##  Exploring Noise Schedulers in DIffusion Models
 
 **Objective:** To investigate the impact of different noise schedulers (Cosine, Sine, Laplace) and formulations (VP vs. Sub-VP) on the training and sampling quality of Denoising Diffusion Probabilistic Models (DDPM).
-**Role:** Researcher (Course Project)
-**Tech Stack:** Python, PyTorch, CIFAR-10, Diffusion Models, UNet Architecture.
 
 ---
 
@@ -34,7 +44,7 @@ We implemented and compared three distinct noise probability distributions $p(\l
 
 > **Visualizing the Noise**
 >
-> ![Comparison of Noise Probability Density Functions]({{ site.baseurl }}/media/noise-schedule.png)
+> ![Comparison of Noise Probability Density Functions]({{ site.baseurl }}/media/noise_schedule.png)
 > *Figure: Comparison between the probability density functions of $\lambda$, $p(\lambda)$, in different model formulations. The Laplace schedule shows a much sharper peak compared to Cosine or Sine.*
 
 ---
