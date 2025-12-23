@@ -26,7 +26,7 @@ In this research, I conducted a deep comparative analysis of various noise sched
 
 ## Publications
 
-### [**IEEE MILCOM 2025 - GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking**] (https://www.arxiv.org/abs/2512.06230)
+### IEEE MILCOM 2025 - GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking(https://www.arxiv.org/abs/2512.06230)
 <div style="text-align: center;">
   <img src="{{ site.baseurl }}/media/glmb_5_gif.gif" alt="Tracker Demo">
 </div>
