@@ -11,9 +11,9 @@ Tracking a vehicle accurately is a classic challenge in robotics and computer vi
 ### The Problem: From a Bounding Box to a Coherent Trajectory
 
 The goal of this project was to track a single vehicle as it moved within an area monitored by a distributed network of four cameras. The process works like this:
-1.  **Image Capture & Detection:** The four cameras provide raw visual data, and a fine-tuned DETR (DEtection TRansformer) model draws bounding boxes around the vehicle.
-2.  **World Projection:** A camera model then takes these 2D bounding boxes and projects them into the real-world 2D plane. This gives us not just a position estimate, but also an associated uncertainty for each detection.
-3.  **Bayesian Tracking:** With a stream of these uncertain measurements, we need a robust algorithm to stitch them together. I chose a **Particle Filter (PF)** for this task.
+1.  Image Capture & Detection: The four cameras provide raw visual data, and a fine-tuned DETR (DEtection TRansformer) model draws bounding boxes around the vehicle.
+2.  World Projection: A camera model then takes these 2D bounding boxes and projects them into the real-world 2D plane. This gives us not just a position estimate, but also an associated uncertainty for each detection.
+3.  Bayesian Tracking: With a stream of these uncertain measurements, we need a robust algorithm to stitch them together. I chose a **Particle Filter (PF)** for this task.
 
 A standard Kalman Filter wouldn't work well here because it assumes linear models and Gaussian noise. Real-world vehicle maneuvers, which we can model with complex, non-linear dynamics like the **Constant Turn Rate and Velocity (CTRV) model**, violate these assumptions. Particle Filters shine in these scenarios because they can represent arbitrary, non-linear probability distributions.
 
