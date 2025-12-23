@@ -34,7 +34,7 @@ We implemented and compared three distinct noise probability distributions $p(\l
 
 > **Visualizing the Noise**
 >
-> ![Comparison of Noise Probability Density Functions](portfolio/media/noise-schedule.png)
+> ![Comparison of Noise Probability Density Functions]({{ site.baseurl }}/media/noise-schedule.png)
 > *Figure: Comparison between the probability density functions of $\lambda$, $p(\lambda)$, in different model formulations. The Laplace schedule shows a much sharper peak compared to Cosine or Sine.*
 
 ---
@@ -66,11 +66,11 @@ We observed that aggressively focusing too much on mid-range noise levels (as se
 >
 > <div style="display: flex; gap: 10px;">
 >   <div style="flex: 1;">
->     <img src="portfolio/media/cosine.png" alt="Cosine VP Samples" />
+>     <img src="{{ site.baseurl }}/media/cosine.png" alt="Cosine VP Samples" />
 >     <p><em>Samples generated using Cosine (s=1) VP.</em></p>
 >   </div>
 >   <div style="flex: 1;">
->     <img src="portfolio/media/laplace.png" alt="Laplace VP Samples" />
+>     <img src="{{ site.baseurl }}/media/laplace.png" alt="Laplace VP Samples" />
 >     <p><em>Samples generated using Laplace (b=2) VP.</em></p>
 >   </div>
 > </div>
