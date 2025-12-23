@@ -1,6 +1,6 @@
 ---
 layout: post
-title: GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
+title: GPU-GLMB - Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 permalink: /projects/gpu-glmb/
 ---
 
