@@ -22,7 +22,7 @@ This project involved architecting a complete autonomous human-following system 
 ### Exploring Noise Schedulers in Diffusion Models
 In this research, I conducted a deep comparative analysis of various noise schedulers to evaluate their effect on the training efficiency and sample quality of Denoising Diffusion Probabilistic Models (DDPMs). Building on these findings, I designed a novel sine-based noise scheduler that demonstrably outperformed the standard cosine scheduler, leading to significant improvements in generated image quality and a notable reduction in model training time.
 
-**[Read More Details →]()**
+**[Read More Details →]({{ site.baseurl }}/projects/noise-schedule/)**
 
 ## Publications
 
