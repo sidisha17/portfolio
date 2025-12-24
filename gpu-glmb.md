@@ -16,23 +16,6 @@ permalink: /projects/gpu-glmb/
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
-<style>
-  body {
-    background-color: #f8f9fa;
-    background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
-    background-size: 24px 24px;
-    background-attachment: fixed;
-  }
-  .wrapper, .container, article {
-    max-width: 1000px !important; /* Wider than default, but readable */
-    background: #ffffff;
-    padding: 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    margin: 40px auto;
-  }
-</style>
-
 ## GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 
 **Objective:** To develop and evaluate a scalable, GPU-accelerated implementation of the Generalized Labeled Multi-Bernoulli (GLMB) filter that supports multiple detections per object.
@@ -57,7 +40,7 @@ This allows us to construct the **Joint Compatibility Matrix** $C_k$ in parallel
 
 $$C_k[i,j] = \begin{cases} g_{ijk} \cdot L(z_{i,k} | x_{j,k}) & \text{for } j=1,\dots,T_k \\ \kappa & \text{for } j=0 \text{ (clutter)} \end{cases}$$
 
-Where $L(z|x)$ is the measurement likelihood and $\kappa$ is the clutter intensity.
+Where $L(z\|x)$ is the measurement likelihood and $\kappa$ is the clutter intensity.
 
 ### Parallel Hypothesis Generation
 Because our formulation breaks the coupling between measurement assignments, we can perform the entire update step—including hypothesis generation, weighting, and pruning—as batch operations parallelized across hypotheses, measurements, and tracks.
