@@ -17,57 +17,21 @@ permalink: /projects/gpu-glmb/
 </script>
 
 <style>
-/* 1. Dot Pattern (Fixed in place) */
-body {
+  body {
     background-color: #f8f9fa;
-    background-image: radial-gradient(#d0d0d0 1px, transparent 1px); /* Slightly darker dots for visibility */
+    background-image: radial-gradient(#d0d0d0 1px, transparent 1px);
     background-size: 24px 24px;
-    background-attachment: fixed; /* <--- THIS PREVENTS SCROLLING */
-}
-
-/* 2. Layout Grid */
-.project-layout {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 50px;
-    margin-top: 40px;
-    margin-bottom: 60px;
-}
-
-/* 3. Sidebar */
-.sidebar {
-    position: sticky;
-    top: 40px;
-    height: fit-content;
-}
-.meta-item { margin-bottom: 25px; }
-.meta-label {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #666;
-    margin-bottom: 5px;
-    display: block;
-    font-weight: 600;
-}
-
-/* 4. White Paper Card Effect */
-.content {
+    background-attachment: fixed;
+  }
+  .wrapper, .container, article {
+    max-width: 1000px !important; /* Wider than default, but readable */
     background: #ffffff;
-    padding: 40px 50px;
+    padding: 40px;
     border-radius: 8px;
-    border: 1px solid #eef0f2;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-}
-
-/* Mobile Adjustments */
-@media (max-width: 850px) {
-    .project-layout { grid-template-columns: 1fr; }
-    .sidebar { position: static; margin-bottom: 30px;}
-    .content { padding: 25px; }
-}
+    margin: 40px auto;
+  }
 </style>
-
 
 ## GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 
