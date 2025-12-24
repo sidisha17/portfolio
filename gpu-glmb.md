@@ -16,6 +16,56 @@ permalink: /projects/gpu-glmb/
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+/* 1. Add the Dot Pattern to the whole page */
+body {
+    background-color: #f8f9fa;
+    background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+/* 2. Layout Grid */
+.project-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 50px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+/* 3. Style the Sidebar (Transparent background looks fine here) */
+.sidebar {
+    position: sticky;
+    top: 40px;
+    height: fit-content;
+}
+.meta-item { margin-bottom: 25px; }
+.meta-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 5px;
+    display: block;
+    font-weight: 600;
+}
+
+/* 4. THE PAPER EFFECT: White background for the main text */
+.content {
+    background: #ffffff;
+    padding: 40px 50px;       /* Inner spacing */
+    border-radius: 8px;       /* Rounded corners */
+    border: 1px solid #eef0f2;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05); /* Soft shadow */
+}
+
+@media (max-width: 850px) {
+    .project-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; margin-bottom: 30px;}
+    .content { padding: 25px; } /* Less padding on mobile */
+}
+</style>
+
 
 ## GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 
