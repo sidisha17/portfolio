@@ -41,6 +41,10 @@ body.dark-mode .theme-toggle {
   color: #fff;
   border-color: #555;
 }
+body.dark-mode strong,
+body.dark-mode b {
+  color: #ffffff; /* Sets bold text to white */
+}
 
 /* Styles for the new blog post header */
 .post-header {
