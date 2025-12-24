@@ -4,48 +4,89 @@ title: Particle Filter Tracker Project
 permalink: /projects/particle-filter/
 ---
 
-##  Particle Filter based Tracker for Geospatial Tracking
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    }
+  };
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 
-Tracking a vehicle accurately is a classic challenge in robotics and computer vision. In a recent project, I explored how to build a smarter tracking system by combining traditional Bayesian filtering with modern deep learning principles and real-world environmental knowledge.
 
-### The Problem: From a Bounding Box to a Coherent Trajectory
+# Particle Filter based Tracker for Geospatial Tracking
 
-The goal of this project was to track a single vehicle as it moved within an area monitored by a distributed network of four cameras. The process works like this:
-1.  Image Capture & Detection: The four cameras provide raw visual data, and a fine-tuned DETR (DEtection TRansformer) model draws bounding boxes around the vehicle.
-2.  World Projection: A camera model then takes these 2D bounding boxes and projects them into the real-world 2D plane. This gives us not just a position estimate, but also an associated uncertainty for each detection.
-3.  Bayesian Tracking: With a stream of these uncertain measurements, we need a robust algorithm to stitch them together. I chose a **Particle Filter (PF)** for this task.
-
-A standard Kalman Filter wouldn't work well here because it assumes linear models and Gaussian noise. Real-world vehicle maneuvers, which we can model with complex, non-linear dynamics like the **Constant Turn Rate and Velocity (CTRV) model**, violate these assumptions. Particle Filters shine in these scenarios because they can represent arbitrary, non-linear probability distributions.
-
----
-
-### Additional Enhancements for Robustness
-
-To improve the standard Bootstrap Particle Filter, I explored two key enhancements.
-
-#### Auxiliary Particle Filter (APF)
-A standard PF predicts where particles will move *without* considering the latest measurement. If a vehicle turns unexpectedly, many particles can end up in a region of low likelihood, reducing the filter's effectiveness. The **Auxiliary Particle Filter (APF)** solves this by incorporating the current measurement into the proposal mechanis. It essentially "looks ahead" to see where the new measurement is, then gives priority to parent particles that are already heading in the right direction. This makes the filter more efficient and allows it to maintain accurate tracking even with a significantly lower number of particles, reducing computational cost.
-
-#### Birth and Death Model
-In scenarios with sparse detections, a tracker can lose its lock on a target. To handle this, I implemented a **birth and death model** for track management. Each track maintains a score that increases with consecutive, successful measurements and decreases when detections are missed. If the score drops below a threshold, the track is terminated ("death"). When a new measurement appears that can't be associated with an existing track, a new one is initiated ("birth").
+**Objective:** To build a robust single-object tracker using Bayesian filtering, enhanced with deep learning (Differentiable PFs) and environmental constraints.
 
 ---
 
-### The Deep Learning Twist: A Differentiable Particle Filter
+## 1. The Problem: From a Bounding Box to a Coherent Trajectory
 
-A traditional PF has parameters, like expected vehicle acceleration, that are usually set by hand. What if the filter could *learn* these parameters on its own?This is where I implemented an end-to-end **Differentiable Particle Filter (DPF)*.By making the algorithm differentiable, we can use backpropagation to automatically learn its internal parameter. This required two key modifications:
-* **The Re-parameterization Trick** to allow gradients to flow through the sampling step.
-* **Soft Resampling** to ensure gradients are not lost during the resampling step.
+The goal of this project was to track a single vehicle (car, bus, or truck) as it moved within an indoor environment monitored by a distributed network of four cameras. The pipeline operates in three stages:
+1.  **Detection:** Cameras provide raw visual data, and a model extracts bounding boxes.
+2.  **Projection:** A camera model projects these 2D boxes into the real-world 2D plane, providing a position mean ($\mu$) and standard deviation ($\sigma$).
+3.  **Bayesian Tracking:** To stitch these uncertain measurements into a coherent trajectory, I implemented a **Bootstrap Particle Filter**.
 
-This approach bridges the gap between classic algorithms and deep learning, creating a system that can adapt and learn the specific dynamics of the vehicles it tracks.
+![Particle Filter State Visualization]({{ site.baseurl }}/media/pf_state_viz.png)
+<div class="caption">Figure: Visualization of the estimated state and covariance ellipsoids as the track progresses.</div>
 
-### The Flexibility Advantage: Particle Filters with Constraints
+A standard Kalman Filter is often insufficient here because vehicle motion can be highly non-linear. I implemented and compared two specific motion models:
+* **Constant Velocity (CV):** Assumes linear motion, simple but struggles with sharp turns.
+* **Constant Turn Rate and Velocity (CTRV):** Models the vehicle's yaw rate, allowing it to better capture curving trajectories even when detections are temporarily lost.
 
-Another great strength of Particle Filters is their flexibility in incorporating environmental information. When detections are lost, particles propagated only by the motion model can drift into physically impossible areas, like off a road. I explored constraining particles within the known room boundaries to keep them grounded in reality. This was done in two ways:
-1.  **Particle Rejection:** After predicting, if a particle's new position is outside the boundary, it is rejected and re-sampled inside the valid area.
-2.  **Weight Modification:** Alternatively, an out-of-bounds particle is penalized by drastically reducing its importance weight, making it highly unlikely to survive the resampling phase.
+![CV vs CTRV Motion Models]({{ site.baseurl }}/media/pf_cv_vs_ctrv.png)
+<div class="caption">Figure: Comparison of motion models. The CTRV model (right) accurately follows the turn during missing detections, whereas the CV model (left) drifts linearly.</div>
 
-While this project used simple room boundaries, I plan to extend this as part of my future work to handle complex road networks, making the tracker even more robust in the real world.
+---
+
+## 2. Enhancements for Robustness
+
+To improve the baseline filter, I explored several advanced techniques to handle data sparsity and efficiency.
+
+### Auxiliary Particle Filter (APF)
+A standard Bootstrap PF predicts particle movement *without* considering the latest measurement. This often leads to "sample impoverishment," where the Effective Sample Size (ESS) drops significantly (often below 50%) because particles drift into low-likelihood regions.
+
+I implemented an **Auxiliary Particle Filter (APF)**, which incorporates the current measurement into the proposal mechanism. By "looking ahead" and prioritizing particles compatible with the new observation, the APF maintained robust performance even with significantly fewer particles.
+* **Result:** While the standard PF degraded significantly at **150 particles**, the APF maintained high accuracy, drastically reducing computational cost.
+
+![PF vs APF at 150 Particles]({{ site.baseurl }}/media/pf_vs_apf.png)
+<div class="caption">Figure: At 150 particles, the standard PF (left) fails to track, while the APF (right) maintains a stable lock.</div>
+
+### Birth and Death Model
+Real-world tracking requires handling vehicles entering and leaving the frame. I implemented a logic-based **birth and death model**:
+* **Birth:** A new track is initiated when measurements cannot be associated with existing tracks.
+* **Death:** A track score is decremented during missed detections; if it drops below a threshold, the track is terminated.
+
+![Birth and Death Model]({{ site.baseurl }}/media/pf_birth_death.png)
+<div class="caption">Figure: The model successfully terminates a track when detections cease and re-initiates when they reappear.</div>
+
+---
+
+## 3. The Deep Learning Twist: A Differentiable Particle Filter
+
+A traditional PF relies on hand-tuned parameters like process noise covariance. To automate this, I developed an end-to-end **Differentiable Particle Filter (DPF)**. This allows the filter to *learn* its own parameters (e.g., acceleration standard deviation) via backpropagation.
+
+This required two critical technical modifications to make the algorithm differentiable:
+1.  **Re-parameterization Trick:** Used to allow gradients to flow through the stochastic sampling step.
+2.  **Soft Resampling:** Replaced standard multinomial resampling with a "soft" approach that blends uniform distributions, ensuring gradients aren't cut off.
+
+**Training Challenges:** I trained the model using a Negative Log-Likelihood (NLL) loss. The process revealed that the loss landscape for PFs is highly rugged due to Monte Carlo noise, often requiring techniques like gradient clipping or diagonal jitter for stability.
+
+---
+
+## 4. The Flexibility Advantage: Particle Filters with Constraints
+
+When detections are lost, particles can drift into impossible areas (e.g., through walls). I constrained particles within known room boundaries using two methods:
+1.  **Particle Rejection/Clamping:** If a predicted particle falls out of bounds, it is either resampled or clamped to the boundary edge with zero perpendicular velocity.
+2.  **Weight Modification:** Out-of-bounds particles are heavily penalized during the weight update, effectively killing them off during resampling.
+
+![Constraints Visualization]({{ site.baseurl }}/media/pf_constraints.png)
+<div class="caption">Figure: Without constraints (top), particles drift through walls. With constraints (bottom), the particles remain bounded and generate a physically realistic track.</div>
+
+[**Read Project Report (PDF)**](https://drive.google.com/file/d/1TMgfTS-SR8dvIsYoiP7W4151wfYf4U2Y/view?usp=drive_link)
 
 <br>
 [← Back to Home]({{ site.baseurl }}/)
