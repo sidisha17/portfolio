@@ -16,6 +16,20 @@ permalink: /projects/gpu-glmb/
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+  .wrapper, .container, .page-content, article {
+    max-width: 1200px !important; 
+    width: 95% !important;       
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+
 ## GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
 
 **Objective:** To develop and evaluate a scalable, GPU-accelerated implementation of the Generalized Labeled Multi-Bernoulli (GLMB) filter that supports multiple detections per object.
