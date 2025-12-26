@@ -1,10 +1,3 @@
-<style>
-
-body {
-    padding-top: 20px;
-}
-</style>
-
 # About me
 
 [Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
