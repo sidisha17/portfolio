@@ -1,11 +1,30 @@
+<style>
+/* Adjusts the header instead of hiding it to ensure your photo stays visible */
+header {
+    padding-bottom: 20px;
+}
+
+/* Hide only the default "Maintained by" footer text if it appears */
+.site-footer-credits {
+    display: none !important;
+}
+
+body {
+    padding-top: 20px;
+}
+</style>
+
 # About me
 
 [Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
 
 ## Education
-- M.S., Computer Science | University of Massachusetts, Amherst (Aug 2024 - May 2026)
-- B.Sc., Programming and Data Science | Indian Institute of Technology Madras, India (Jan 2021 - May 2024)
-- B.E., Mechanical Engineering | Birla Institute of Technology and Science Pilani, India (Aug 2016 – May 2020)
+
+| Degree | Institution | Duration |
+| :--- | :--- | :--- |
+| **M.S., Computer Science** | University of Massachusetts, Amherst | Aug 2024 – May 2026 |
+| **B.Sc., Programming and Data Science** | Indian Institute of Technology Madras, India | Jan 2021 – May 2024 |
+| **B.E., Mechanical Engineering** | Birla Institute of Technology and Science Pilani, India | Aug 2016 – May 2020 |
 
 ## Projects
 
