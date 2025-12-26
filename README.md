@@ -1,13 +1,4 @@
 <style>
-/* Adjusts the header instead of hiding it to ensure your photo stays visible */
-header {
-    padding-bottom: 20px;
-}
-
-/* Hide only the default "Maintained by" footer text if it appears */
-.site-footer-credits {
-    display: none !important;
-}
 
 body {
     padding-top: 20px;
