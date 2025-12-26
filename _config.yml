@@ -1,5 +1,5 @@
 title: Sidisha Shyam Barik
-logo: {{ site.baseurl }}/media/sid.jpeg
+logo: /media/sid.jpeg
 description:
 theme: jekyll-theme-minimal
 baseurl: "/portfolio"
