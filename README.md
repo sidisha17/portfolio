@@ -1,20 +1,3 @@
-<style>
-/* Hide the default GitHub Theme Header */
-header {
-    display: none !important;
-}
-
-/* Hide the default "Maintained by" footer text if it appears there */
-.site-footer-credits {
-    display: none !important;
-}
-
-/* Ensure your own content still has room at the top */
-body {
-    padding-top: 40px; /* Gives your custom title some breathing room */
-}
-</style>
-
 # About me
 
 [Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
