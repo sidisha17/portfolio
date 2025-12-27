@@ -10,10 +10,6 @@ h1, h2, h3 {
     color: #e67e22 !important; /* A slightly deeper orange for headings */
 }
 
-/* 3. Hide default footer text */
-.site-footer-credits {
-    display: none !important;
-}
 </style>
 
 [Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
