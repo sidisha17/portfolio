@@ -16,6 +16,20 @@ permalink: /projects/particle-filter/
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+a {
+    color: #c3e88d !important; /* A warm amber for links */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1, h2, h3 {
+    color: #91b859 !important; /* A slightly deeper orange for headings */
+}
+
+</style>
+
 
 # Particle Filter based Tracker for Geospatial Tracking
 
