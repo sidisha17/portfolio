@@ -16,6 +16,19 @@ permalink: /projects/noise-schedule/
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
 </script>
 
+<style>
+a {
+    color: #c3e88d !important; /* A warm amber for links */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+h1, h2, h3 {
+    color: #91b859 !important; /* A slightly deeper orange for headings */
+}
+</style>
+
 ##  Exploring Noise Schedulers in DIffusion Models
 
 **Objective:** To investigate the impact of different noise schedulers (Cosine, Sine, Laplace) and formulations (VP vs. Sub-VP) on the training and sampling quality of Denoising Diffusion Probabilistic Models (DDPM).
@@ -61,13 +74,6 @@ We implemented and compared three distinct noise probability distributions $p(\l
 
 ### Quantitative Analysis
 We found that the **Cosine VP (Baseline)** and **EDM Samplers** generally performed best in our limited-compute setting. While the Laplace schedule is theoretically superior for efficiency, the broad coverage of the Cosine schedule produced consistent results.
-
-| Model / Schedule | Formulation | FID Score (3k) |
-| :--- | :--- | :--- |
-| **Cosine (s=1)** | VP | **167.86** |
-| Laplace (b=3) | VP | 168.26 |
-| Sine (s=1) | Sub-VP | 168.75 |
-| Laplace (b=2) | Sub-VP | 169.61 |
 
 ### Qualitative Analysis
 We observed that aggressively focusing too much on mid-range noise levels (as seen in certain Laplace configurations) did not yield significant visual improvements over the baseline in this specific setup.
