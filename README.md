@@ -1,16 +1,19 @@
 <style>
-/* 2. Link and Heading Colors (Changing from Blue) */
 a {
-    color: #678953 !important; /* A warm amber for links */
+    color: #AF6F0F !important; /* A warm amber for links */
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
 }
 h1, h2, h3 {
-    color: #91b859 !important; /* A slightly deeper orange for headings */
+    color: #e67e22 !important; /* A slightly deeper orange for headings */
 }
 
+/* 3. Hide default footer text */
+.site-footer-credits {
+    display: none !important;
+}
 </style>
 
 [Education](#education) • [Projects](#projects) • [Publications](#publications) • [Work Experience](#work-experience)
