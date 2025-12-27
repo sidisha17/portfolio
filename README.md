@@ -1,7 +1,7 @@
 <style>
 /* 2. Link and Heading Colors (Changing from Blue) */
 a {
-    color: #c3e88d !important; /* A warm amber for links */
+    color: #678953 !important; /* A warm amber for links */
     text-decoration: none;
 }
 a:hover {
