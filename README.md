@@ -35,7 +35,7 @@ In this research, I conducted a deep comparative analysis of various noise sched
 **[Read More Details →]({{ site.baseurl }}/projects/noise-schedule/)**
 
 ### Autonomous Human Following Robot
-This project involved architecting a complete autonomous human-following system on a three-wheeled omnidirectional robot, using ROS for control and an NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even through temporary occlusions, I enhanced a SORT algorithm with a custom re-identification module. The final implementation features a finely-tuned Proportional (P) controller, achieving smooth, real-time tracking with a low system latency of just 1.2 seconds.
+This project involved architecting a complete autonomous human-following system on a three-wheeled omnidirectional robot, using ROS for control and an NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even through temporary occlusions, we enhanced a SORT algorithm with a custom re-identification module. The final implementation features a finely-tuned Proportional (P) controller, achieving smooth, real-time tracking with a low system latency of just 1.2 seconds.
 
 ## Publications
 
