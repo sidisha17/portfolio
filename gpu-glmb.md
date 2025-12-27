@@ -111,7 +111,7 @@ Future work will focus on integrating this into heterogeneous compute networks, 
 ### Read the Full Publication
 For the complete derivation of the modified GLMB update and detailed experimental graphs, please refer to the preprint.
 
-[**Download Publication (PDF)**]([INSERT_YOUR_GOOGLE_DRIVE_LINK_HERE](https://www.arxiv.org/abs/2512.06230))
+[**Download Publication (PDF)**](https://www.arxiv.org/abs/2512.06230)
 
 <br>
 [← Back to Home]({{ site.baseurl }}/)
