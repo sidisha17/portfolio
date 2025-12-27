@@ -18,14 +18,14 @@ permalink: /projects/particle-filter/
 
 <style>
 a {
-    color: #c3e88d !important; /* A warm amber for links */
+    color: #AF6F0F !important; /* A warm amber for links */
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
 }
 h1, h2, h3 {
-    color: #91b859 !important; /* A slightly deeper orange for headings */
+    color: #e67e22 !important; /* A slightly deeper orange for headings */
 }
 
 </style>
