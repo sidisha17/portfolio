@@ -18,7 +18,7 @@ permalink: /projects/gpu-glmb/
 
 <style>
 a {
-    color: #c3e88d !important; /* A warm amber for links */
+    color: #678953 !important; /* A warm amber for links */
     text-decoration: none;
 }
 a:hover {
