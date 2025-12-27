@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Exploring Noise Schedulers in DIffusion Models
+title: Exploring Noise Schedulers in Diffusion Models
 permalink: /projects/noise-schedule/
 ---
 
