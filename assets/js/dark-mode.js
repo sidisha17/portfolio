@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const isDarkMode = localStorage.getItem('darkMode') === 'true';
     if (isDarkMode) {
       body.classList.add('dark-mode');
-      themeToggle.textContent = 'Light Mode ☀️';
+      themeToggle.textContent = '☀️';
     } else {
       body.classList.remove('dark-mode');
-      themeToggle.textContent = 'Dark Mode 🌙';
+      themeToggle.textContent = '🌙';
     }
   }
 
@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function () {
     localStorage.setItem('darkMode', isDarkMode);
     
     if (isDarkMode) {
-      themeToggle.textContent = 'Light Mode ☀️';
+      themeToggle.textContent = '☀️';
     } else {
-      themeToggle.textContent = 'Dark Mode 🌙';
+      themeToggle.textContent = '🌙';
     }
   });
 
