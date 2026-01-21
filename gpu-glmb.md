@@ -84,6 +84,9 @@ Our results demonstrate that the GPU-accelerated implementation dramatically out
 * **Real-Time Performance:** The Nvidia L40S GPU maintained an average update time well under the real-time threshold (0.1s) even for the most intensive scenarios (20 objects, 100 hypotheses).
 * **Scaling:** While the Edge GPU (Orin NX) struggled with high object counts, Server GPUs showed excellent scalability, with the L40S exhibiting almost flat run-time growth as the number of hypotheses increased.
 
+> ![demo]({{ site.baseurl }}/media/glmb_map_gif_2.gif)
+> *Demo of the tracker.*
+
 > **Run Time Analysis**
 >
 > ![Time per Update vs Hmax for different GPUs]({{ site.baseurl }}/media/gpu_glmb_runtime.png)
