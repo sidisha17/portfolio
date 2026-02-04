@@ -22,6 +22,14 @@ h1, h2, h3 {
 | **B.Sc., Programming and Data Science** | Indian Institute of Technology Madras, India | Jan 2021 – May 2024 |
 | **B.E., Mechanical Engineering** | Birla Institute of Technology and Science Pilani, India | Aug 2016 – May 2020 |
 
+## Publications
+
+### [IEEE MILCOM 2025 - GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking](https://www.arxiv.org/abs/2512.06230)
+
+My work on GPU-GLMB presents the first fully vectorized and scalable implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A core innovation was a novel, measurement-focused categorical sampling method that replaces the traditional Gibbs sampling bottleneck, enabling massive parallelization on GPUs. This new architecture is incredibly efficient, demonstrating that a 100x increase in scenario complexity results in only a 3x increase in processing time, making it highly effective for deployment on resource-constrained edge devices.
+
+**[Read More Details →]({{ site.baseurl }}/projects/gpu-glmb/)**
+
 ## Projects
 
 ###  Particle Filter based Tracker for Geospatial Tracking
@@ -36,14 +44,6 @@ In this research, I conducted a deep comparative analysis of various noise sched
 
 ### Autonomous Human Following Robot
 This project involved architecting a complete autonomous human-following system on a three-wheeled omnidirectional robot, using ROS for control and an NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even through temporary occlusions, we enhanced a SORT algorithm with a custom re-identification module. The final implementation features a finely-tuned Proportional (P) controller, achieving smooth, real-time tracking with a low system latency of just 1.2 seconds.
-
-## Publications
-
-### [IEEE MILCOM 2025 - GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking](https://www.arxiv.org/abs/2512.06230)
-
-My work on GPU-GLMB presents the first fully vectorized and scalable implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A core innovation was a novel, measurement-focused categorical sampling method that replaces the traditional Gibbs sampling bottleneck, enabling massive parallelization on GPUs. This new architecture is incredibly efficient, demonstrating that a 100x increase in scenario complexity results in only a 3x increase in processing time, making it highly effective for deployment on resource-constrained edge devices.
-
-**[Read More Details →]({{ site.baseurl }}/projects/gpu-glmb/)**
 
 ## Work Experience
 
