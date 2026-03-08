@@ -28,6 +28,8 @@ h1, h2, h3 {
 
 My work on GPU-GLMB presents the first fully vectorized and scalable implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A core innovation was a novel, measurement-focused categorical sampling method that replaces the traditional Gibbs sampling bottleneck, enabling massive parallelization on GPUs. This new architecture is incredibly efficient, demonstrating that a 100x increase in scenario complexity results in only a 3x increase in processing time, making it highly effective for deployment on resource-constrained edge devices.
 
+### Information Fusion 2026 - Tracking Ground Vehicles with State-Time-Variant Process Noise Models
+
 **[Read More Details →]({{ site.baseurl }}/projects/gpu-glmb/)**
 
 ## Projects
