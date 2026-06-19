@@ -1,5 +1,25 @@
 title: Sidisha Shyam Barik
 logo: /media/sid.jpeg
-description:
+description: >-
+  Portfolio of Sidisha Shyam Barik — M.S. Computer Science (University of
+  Massachusetts Amherst). Research in multi-object tracking, Bayesian filtering,
+  and machine learning.
 theme: jekyll-theme-minimal
 baseurl: "/portfolio"
+
+# ----- Hero / about (placeholder microcopy — edit freely) -----
+author_role: "M.S. Computer Science · University of Massachusetts Amherst"
+tagline: >-
+  Computer-vision and machine-learning researcher working on multi-object
+  tracking, Bayesian filtering, and generative models.
+resume: /material/sidisha_portfolio.pdf
+
+# ----- Social links (blank entries are hidden automatically) -----
+social:
+  github: https://github.com/sidisha17
+  linkedin:
+  email:
+  scholar:
+
+plugins:
+  - jekyll-seo-tag

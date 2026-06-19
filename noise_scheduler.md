@@ -4,32 +4,6 @@ title: Exploring Noise Schedulers in Diffusion Models
 permalink: /projects/noise-schedule/
 ---
 
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    }
-  };
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-
-<style>
-a {
-    color: #AF6F0F !important; /* A warm amber for links */
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-h1, h2, h3 {
-    color: #e67e22 !important; /* A slightly deeper orange for headings */
-}
-
-</style>
-
 ##  Exploring Noise Schedulers in DIffusion Models
 
 **Objective:** To investigate the impact of different noise schedulers (Cosine, Sine, Laplace) and formulations (VP vs. Sub-VP) on the training and sampling quality of Denoising Diffusion Probabilistic Models (DDPM).

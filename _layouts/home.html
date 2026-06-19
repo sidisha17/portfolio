@@ -1,0 +1,28 @@
+---
+layout: base
+---
+<section class="hero">
+  <div class="container hero-inner">
+    {% if site.logo %}
+      <img class="hero-avatar" src="{{ site.logo | relative_url }}" alt="{{ site.title }}" width="136" height="136">
+    {% endif %}
+    <div class="hero-text">
+      {% if site.author_role %}<p class="hero-kicker">{{ site.author_role }}</p>{% endif %}
+      <h1 class="hero-name">{{ site.title }}</h1>
+      {% if site.tagline %}<p class="hero-tagline">{{ site.tagline }}</p>{% endif %}
+      <div class="hero-links">
+        {% if site.resume %}<a class="btn btn-primary" href="{{ site.resume | relative_url }}" target="_blank" rel="noopener">Résumé / CV</a>{% endif %}
+        {% if site.social.github %}<a class="btn" href="{{ site.social.github }}" target="_blank" rel="noopener">GitHub</a>{% endif %}
+        {% if site.social.linkedin %}<a class="btn" href="{{ site.social.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}
+        {% if site.social.scholar %}<a class="btn" href="{{ site.social.scholar }}" target="_blank" rel="noopener">Scholar</a>{% endif %}
+        {% if site.social.email %}<a class="btn" href="mailto:{{ site.social.email }}">Email</a>{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <div class="prose">
+    {{ content }}
+  </div>
+</main>

@@ -4,33 +4,6 @@ title: Particle Filter Tracker Project
 permalink: /projects/particle-filter/
 ---
 
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    }
-  };
-</script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-</script>
-
-<style>
-a {
-    color: #AF6F0F !important; /* A warm amber for links */
-    text-decoration: none;
-}
-a:hover {
-    text-decoration: underline;
-}
-h1, h2, h3 {
-    color: #e67e22 !important; /* A slightly deeper orange for headings */
-}
-
-</style>
-
-
 # Particle Filter based Tracker for Geospatial Tracking
 
 **Objective:** To build a robust single-object tracker using Bayesian filtering, enhanced with deep learning (Differentiable PFs) and environmental constraints.
