@@ -1,0 +1,13 @@
+# Education — shown as a list on the homepage (most recent first).
+# Fields: degree, institution, duration
+- degree: "M.S., Computer Science"
+  institution: "University of Massachusetts, Amherst"
+  duration: "Aug 2024 – May 2026"
+
+- degree: "B.Sc., Programming and Data Science"
+  institution: "Indian Institute of Technology Madras, India"
+  duration: "Jan 2021 – May 2024"
+
+- degree: "B.E., Mechanical Engineering"
+  institution: "Birla Institute of Technology and Science Pilani, India"
+  duration: "Aug 2016 – May 2020"

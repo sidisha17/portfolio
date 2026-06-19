@@ -1,0 +1,41 @@
+# Projects — shown as a card grid on the homepage.
+# Fields: title, image (optional; blank = gradient placeholder),
+#         description, tags: [..], url (optional; blank = no "Read more" link)
+- title: "Particle Filter based Tracker for Geospatial Tracking"
+  image: /media/pf_vs_apf.png
+  description: >-
+    I developed a sophisticated Bayesian particle filter to track objects in
+    complex real-world geospatial data from a distributed camera network. To
+    handle challenges like non-linear motion and sensor noise, I integrated a
+    physics-based CTRV model. A key innovation was implementing an Auxiliary
+    Particle Filter (APF), which successfully mitigated particle degeneracy by
+    doubling the effective sample size, significantly boosting the tracker's
+    stability and performance.
+  tags: [Bayesian Filtering, Particle Filter, CTRV, PyTorch]
+  url: /projects/particle-filter/
+
+- title: "Exploring Noise Schedulers in Diffusion Models"
+  image: /media/cosine.png
+  description: >-
+    In this research, I conducted a deep comparative analysis of various noise
+    schedulers to evaluate their effect on the training efficiency and sample
+    quality of Denoising Diffusion Probabilistic Models (DDPMs). Building on these
+    findings, I designed a novel sine-based noise scheduler that demonstrably
+    outperformed the standard cosine scheduler, leading to significant
+    improvements in generated image quality and a notable reduction in model
+    training time.
+  tags: [Diffusion Models, DDPM, Generative AI, PyTorch]
+  url: /projects/noise-schedule/
+
+- title: "Autonomous Human Following Robot"
+  image:
+  description: >-
+    This project involved architecting a complete autonomous human-following
+    system on a three-wheeled omnidirectional robot, using ROS for control and an
+    NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even
+    through temporary occlusions, we enhanced a SORT algorithm with a custom
+    re-identification module. The final implementation features a finely-tuned
+    Proportional (P) controller, achieving smooth, real-time tracking with a low
+    system latency of just 1.2 seconds.
+  tags: [ROS, Jetson Nano, SORT, Computer Vision]
+  url:

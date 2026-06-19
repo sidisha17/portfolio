@@ -20,8 +20,114 @@ layout: base
   </div>
 </section>
 
-<main class="container">
-  <div class="prose">
-    {{ content }}
-  </div>
+<main>
+  {% comment %} ---------- Publications ---------- {% endcomment %}
+  {% if site.data.publications %}
+  <section id="publications" class="section">
+    <div class="container">
+      <h2 class="section-title">Publications</h2>
+      <div class="pub-list">
+        {% for pub in site.data.publications %}
+        <article class="pub-card">
+          <div class="pub-media{% unless pub.image %} media--placeholder{% endunless %}">
+            {% if pub.image %}
+              <img src="{{ pub.image | relative_url }}" alt="{{ pub.title }}" loading="lazy">
+            {% else %}
+              <span class="placeholder-label">{{ pub.venue | default: pub.title }}</span>
+            {% endif %}
+          </div>
+          <div class="pub-body">
+            {% if pub.venue %}<span class="badge">{{ pub.venue }}</span>{% endif %}
+            <h3 class="pub-title">{{ pub.title }}</h3>
+            {% if pub.description %}<p class="pub-desc">{{ pub.description }}</p>{% endif %}
+            {% if pub.links %}
+            <div class="card-links">
+              {% for link in pub.links %}
+              <a class="card-link" href="{{ link.url | relative_url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }} {% if link.external %}&#8599;{% else %}&#8594;{% endif %}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- Projects ---------- {% endcomment %}
+  {% if site.data.projects %}
+  <section id="projects" class="section">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+      <div class="card-grid">
+        {% for proj in site.data.projects %}
+        <article class="card">
+          <div class="card-thumb{% unless proj.image %} media--placeholder{% endunless %}">
+            {% if proj.image %}
+              <img src="{{ proj.image | relative_url }}" alt="{{ proj.title }}" loading="lazy">
+            {% else %}
+              <span class="placeholder-label">{{ proj.title }}</span>
+            {% endif %}
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ proj.title }}</h3>
+            {% if proj.description %}<p class="card-desc">{{ proj.description }}</p>{% endif %}
+            {% if proj.tags %}
+            <div class="card-tags">
+              {% for tag in proj.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+            </div>
+            {% endif %}
+            {% if proj.url %}<a class="card-link" href="{{ proj.url | relative_url }}">Read more &#8594;</a>{% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- Experience ---------- {% endcomment %}
+  {% if site.data.experience %}
+  <section id="work-experience" class="section">
+    <div class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+        {% for job in site.data.experience %}
+        <div class="timeline-item">
+          <span class="timeline-marker"></span>
+          <div class="timeline-content">
+            <div class="timeline-head">
+              <h3 class="timeline-role">{{ job.role }}</h3>
+              {% if job.duration %}<span class="timeline-date">{{ job.duration }}</span>{% endif %}
+            </div>
+            {% if job.company %}<p class="timeline-company">{{ job.company }}</p>{% endif %}
+            {% if job.description %}<p class="timeline-desc">{{ job.description }}</p>{% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  {% comment %} ---------- Education ---------- {% endcomment %}
+  {% if site.data.education %}
+  <section id="education" class="section">
+    <div class="container">
+      <h2 class="section-title">Education</h2>
+      <div class="edu-list">
+        {% for edu in site.data.education %}
+        <div class="edu-item">
+          <div class="edu-main">
+            <h3 class="edu-degree">{{ edu.degree }}</h3>
+            {% if edu.institution %}<p class="edu-school">{{ edu.institution }}</p>{% endif %}
+          </div>
+          {% if edu.duration %}<span class="edu-date">{{ edu.duration }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
 </main>

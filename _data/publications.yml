@@ -1,0 +1,29 @@
+# Publications — shown as cards on the homepage (newest first).
+# Fields: title, venue, image (optional; blank = gradient placeholder),
+#         description (optional), links: [{label, url, external}]
+- title: "GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking"
+  venue: "IEEE MILCOM 2025"
+  image: /media/glmb_map_gif_2.gif
+  description: >-
+    My work on GPU-GLMB presents the first fully vectorized and scalable
+    implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A
+    core innovation was a novel, measurement-focused categorical sampling method
+    that replaces the traditional Gibbs sampling bottleneck, enabling massive
+    parallelization on GPUs. This new architecture is incredibly efficient,
+    demonstrating that a 100x increase in scenario complexity results in only a 3x
+    increase in processing time, making it highly effective for deployment on
+    resource-constrained edge devices.
+  links:
+    - label: "Read more"
+      url: /projects/gpu-glmb/
+    - label: "arXiv"
+      url: https://www.arxiv.org/abs/2512.06230
+      external: true
+
+- title: "Tracking Ground Vehicles with State-Time-Variant Process Noise Models"
+  venue: "Information Fusion 2026"
+  image:
+  description:
+  links:
+    - label: "Read more"
+      url: /projects/gpu-glmb/

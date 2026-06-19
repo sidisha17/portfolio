@@ -459,3 +459,210 @@ main { padding: 8px 0 96px; }
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: none; }
 }
+
+/* =========================================================
+   Homepage sections (data-driven cards & timeline)
+   ========================================================= */
+main { padding: 0 0 80px; }
+
+.section {
+  padding: 30px 0;
+  scroll-margin-top: calc(var(--nav-h) + 16px);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  margin: 0 0 26px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Shared placeholder for items without an image */
+.media--placeholder {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(120% 120% at 0% 0%, var(--accent-soft), transparent 60%),
+    var(--bg-subtle);
+}
+.placeholder-label {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--text-faint);
+  text-align: center;
+  padding: 0 18px;
+  line-height: 1.5;
+}
+
+/* Badges & tags */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--accent);
+  background: var(--accent-soft);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+.card-tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 0 0 18px; }
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border);
+  padding: 4px 9px;
+  border-radius: 6px;
+}
+
+/* Card links */
+.card-links { margin-top: auto; display: flex; flex-wrap: wrap; gap: 18px; padding-top: 4px; }
+.card-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .18s ease, gap .18s ease;
+}
+.card-link:hover { color: var(--accent-strong); }
+
+/* ---------- Publications (horizontal media cards) ---------- */
+.pub-list { display: flex; flex-direction: column; gap: 22px; }
+.pub-card {
+  display: grid;
+  grid-template-columns: 248px 1fr;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.pub-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+.pub-media { overflow: hidden; background: var(--bg-subtle); min-height: 168px; }
+.pub-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.pub-card:hover .pub-media img { transform: scale(1.04); }
+.pub-body { padding: 24px 26px; display: flex; flex-direction: column; }
+.pub-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.pub-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin: 0 0 18px; }
+
+/* ---------- Projects (card grid) ---------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 22px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-md);
+}
+.card-thumb { aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg-subtle); }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease; }
+.card:hover .card-thumb img { transform: scale(1.05); }
+.card-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+.card-desc { font-size: 0.93rem; color: var(--text-muted); line-height: 1.6; margin: 0 0 18px; }
+
+/* ---------- Experience (timeline) ---------- */
+.timeline { position: relative; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+}
+.timeline-item { position: relative; padding: 0 0 32px 34px; }
+.timeline-item:last-child { padding-bottom: 0; }
+.timeline-marker {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid var(--accent);
+}
+.timeline-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.timeline-role {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+.timeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+.timeline-company { font-size: 0.95rem; color: var(--accent); font-weight: 500; margin: 3px 0 10px; }
+.timeline-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; margin: 0; }
+
+/* ---------- Education (list) ---------- */
+.edu-list { display: flex; flex-direction: column; }
+.edu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+.edu-item:first-child { padding-top: 0; }
+.edu-item:last-child { border-bottom: 0; padding-bottom: 0; }
+.edu-degree { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin: 0 0 3px; color: var(--text); }
+.edu-school { font-size: 0.93rem; color: var(--text-muted); margin: 0; }
+.edu-date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-faint); white-space: nowrap; }
+
+/* ---------- Section responsiveness ---------- */
+@media (max-width: 640px) {
+  .pub-card { grid-template-columns: 1fr; }
+  .pub-media { aspect-ratio: 16 / 9; min-height: 0; }
+  .edu-item { flex-direction: column; gap: 4px; }
+}
