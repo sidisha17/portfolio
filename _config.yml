@@ -7,6 +7,12 @@ description: >-
 theme: jekyll-theme-minimal
 baseurl: "/portfolio"
 
+# README.md now has front matter (layout: home). By default GitHub Pages'
+# jekyll-readme-index plugin skips READMEs with front matter, so we must opt in
+# for it to be served as the site index (/) instead of /README.html.
+readme_index:
+  with_frontmatter: true
+
 # ----- Hero / about (placeholder microcopy — edit freely) -----
 author_role: "M.S. Computer Science · University of Massachusetts Amherst"
 tagline: >-
