@@ -4,7 +4,7 @@
 - title: "GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking"
   venue: "IEEE MILCOM 2025"
   authors: "P. Balakrishnan*, <strong>S. Barik*</strong>, S. M. O'Rourke, B. M. Marlin"
-  image: /media/glmb_map_gif_2.gif
+  image: /media/pipeline.png
   description: >-
     Real-time tracking of every vehicle moving through an area by fusing video
     from a network of smart camera nodes into accurate, map-aware geospatial
