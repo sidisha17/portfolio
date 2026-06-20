@@ -10,7 +10,6 @@ permalink: /projects/gpu-glmb/
 
 **IEEE MILCOM 2025** &middot; 5th Int'l Workshop on the Internet of Things for Adversarial Environments
 **Authors:** P. Balakrishnan\*, **S. Barik\***, S. M. O'Rourke, B. M. Marlin &middot; *\*equal contribution*
-**Sponsored by the U.S. Army Research Laboratory**
 
 [**Read the paper (arXiv) →**](https://www.arxiv.org/abs/2512.06230)
 
@@ -83,7 +82,7 @@ Speed only matters if the tracks are trustworthy, so we made several deliberate 
      Export to  media/gpu_glmb_map.png  and enable a blockquote figure here. -->
 
 ## Results: real data, real hardware
-This isn't a toy benchmark. We evaluated on **complex vehicle trajectories collected at the U.S. Army Research Laboratory**, then synthesized convoy-style multi-object scenarios from them — with crossings, vehicles moving in parallel in opposite directions, sharp maneuvers, and genuine blind spots. These scenarios are deliberately *harder* than typical road networks, and far more challenging than the simple datasets GLMB methods are usually demonstrated on.
+This isn't a toy benchmark. We evaluated on **complex vehicle trajectories**, then synthesized convoy-style multi-object scenarios from them — with crossings, vehicles moving in parallel in opposite directions, sharp maneuvers, and genuine blind spots. These scenarios are deliberately *harder* than typical road networks, and far more challenging than the simple datasets GLMB methods are usually demonstrated on.
 
 > ![Test-bed ground-truth trajectories]({{ site.baseurl }}/media/gpu_glmb_groundtruth.png)
 > *High-precision GPS ground truth from the ARL testbed, used to synthesize dense multi-object scenarios.*

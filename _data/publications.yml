@@ -11,8 +11,7 @@
     trajectories. I re-architected the GLMB filter — the mathematically exact but
     famously slow gold standard for multi-object tracking — to run fully in
     parallel on GPUs, reaching sub-100 ms latency from edge devices to servers.
-    Built end-to-end in PyTorch and validated on complex real-world convoy data
-    collected at the U.S. Army Research Laboratory.
+    Built end-to-end in PyTorch and validated on complex real-world convoy data.
   links:
     - label: "Read more"
       url: /projects/gpu-glmb/
