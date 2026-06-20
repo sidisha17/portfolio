@@ -19,10 +19,12 @@
       url: https://www.arxiv.org/abs/2512.06230
       external: true
 
-- title: "Tracking Ground Vehicles with State-Time-Variant Process Noise Models"
-  venue: "Information Fusion 2026"
+- title: "Improving Target Tracking in Stone Soup via State-Dependent Process Noise Models"
+  venue: "Information Fusion 2026 · Under review"
+  authors: "B. M. Marlin, S. M. O'Rourke, <strong>S. Barik</strong>, P. Balakrishnan, C. Samplawski"
   image:
-  description:
-  links:
-    - label: "Read more"
-      url: /projects/gpu-glmb/
+  description: >-
+    Makes multi-object tracking more robust by letting the motion model's process
+    noise adapt to a target's state, so the tracker better handles clutter, missed
+    detections, and complex vehicle maneuvers. Developed and evaluated within the
+    open-source Stone Soup tracking framework.

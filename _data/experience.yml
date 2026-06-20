@@ -1,5 +1,16 @@
 # Work experience — shown as a timeline on the homepage (most recent first).
-# Fields: role, company, duration, description
+# Fields: role, company, duration (optional), description
+- role: "Research Extern"
+  company: "Google DeepMind"
+  description: >-
+    Worked with Google DeepMind on efficient transformer scaling — increasing
+    model capacity without proportional compute growth. I designed controlled
+    pretraining experiments across residual-stream architectures (mHC, VWN,
+    AltUp), built the evaluation framework spanning FLOPs, throughput, and
+    downstream accuracy, and surfaced the practical training-time bottlenecks
+    behind theoretically "free" compute gains — reaching up to a 30.4% downstream
+    improvement at near-constant parameters and FLOPs.
+
 - role: "Senior Analyst, Product Development"
   company: "American Express, India"
   duration: "Aug 2022 – May 2024"

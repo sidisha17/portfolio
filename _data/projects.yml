@@ -1,41 +1,75 @@
 # Projects — shown as a card grid on the homepage.
 # Fields: title, image (optional; blank = gradient placeholder),
-#         description, tags: [..], url (optional; blank = no "Read more" link)
-- title: "Particle Filter based Tracker for Geospatial Tracking"
+#         placeholder (optional label shown on image-less cards),
+#         description, tags: [..], links: [{label, url, external}]
+- title: "Differentiable Particle Filter for Geospatial Tracking"
   image: /media/pf_vs_apf.png
   description: >-
-    I developed a sophisticated Bayesian particle filter to track objects in
-    complex real-world geospatial data from a distributed camera network. To
-    handle challenges like non-linear motion and sensor noise, I integrated a
-    physics-based CTRV model. A key innovation was implementing an Auxiliary
-    Particle Filter (APF), which successfully mitigated particle degeneracy by
-    doubling the effective sample size, significantly boosting the tracker's
-    stability and performance.
-  tags: [Bayesian Filtering, Particle Filter, CTRV, PyTorch]
-  url: /projects/particle-filter/
+    A geospatial vehicle tracker built as a fully differentiable particle filter
+    in PyTorch — so its motion-model parameters are learned directly by
+    backpropagation instead of hand-tuned. A non-linear CTRV motion model captures
+    real vehicle turns, while map-based constraints split the particle
+    distribution into valid hypotheses at intersections (left vs. right) rather
+    than letting it drift through walls — keeping tracks physically valid through
+    blind spots.
+  tags: [Particle Filter, Differentiable, CTRV, Map Constraints, PyTorch]
+  links:
+    - label: "Read more"
+      url: /projects/particle-filter/
+
+- title: "Efficient Residual Stream Scaling for Transformers"
+  image:
+  placeholder: "Google DeepMind"
+  description: >-
+    A collaboration with Google DeepMind on making transformers more capable
+    without paying proportionally more compute. I built a unified PyTorch
+    pretraining pipeline to benchmark residual-stream scaling architectures (mHC,
+    VWN, AltUp) — training 135M-parameter language models on 13.5B tokens — and
+    found up to a 30.4% gain on downstream benchmarks at near-constant parameters
+    and FLOPs, while tracing the runtime bottlenecks (memory access, CUDA
+    kernel-launch overhead) that erode theoretical efficiency.
+  tags: [LLM Pretraining, Transformers, Scaling, PyTorch]
+  links:
+    - label: "Report (PDF)"
+      url: /material/2026_698DS_Residual_Stream_Widening.pdf
+      external: true
+
+- title: "Spatial Reasoning in Vision-Language Models via JEPA World Models"
+  image:
+  placeholder: "I-JEPA × Qwen2"
+  description: >-
+    A vision-language model that reasons about geometry, not just labels: I
+    replaced the usual semantic vision encoder with a self-supervised I-JEPA world
+    model and built a feature-translation module to align its geometric
+    representations with a Qwen2-7B language model. A two-stage alignment +
+    instruction-tuning pipeline — trained on a single GPU with LoRA and 4-bit
+    quantization — was then evaluated for spatial grounding and hallucination on
+    object-permanence benchmarks.
+  tags: [VLM, I-JEPA, World Models, LoRA, Qwen2]
+  links:
+    - label: "Report (PDF)"
+      url: /material/Probing_Spatial_Reasoning_in_VLM_Report.pdf
+      external: true
 
 - title: "Exploring Noise Schedulers in Diffusion Models"
   image: /media/cosine.png
   description: >-
-    In this research, I conducted a deep comparative analysis of various noise
-    schedulers to evaluate their effect on the training efficiency and sample
-    quality of Denoising Diffusion Probabilistic Models (DDPMs). Building on these
-    findings, I designed a novel sine-based noise scheduler that demonstrably
-    outperformed the standard cosine scheduler, leading to significant
-    improvements in generated image quality and a notable reduction in model
-    training time.
+    An end-to-end study of how the noise schedule shapes diffusion-model training
+    and sample quality. I trained 100M-parameter DDPMs from scratch on CIFAR-10
+    across Variance-Preserving and Sub-VP formulations, and built a unified
+    log-SNR framework to compare Cosine, Sine, and Laplace schedulers head-to-head
+    under FID evaluation.
   tags: [Diffusion Models, DDPM, Generative AI, PyTorch]
-  url: /projects/noise-schedule/
+  links:
+    - label: "Read more"
+      url: /projects/noise-schedule/
 
 - title: "Autonomous Human Following Robot"
   image:
   description: >-
-    This project involved architecting a complete autonomous human-following
-    system on a three-wheeled omnidirectional robot, using ROS for control and an
-    NVIDIA Jetson Nano for onboard computation. To ensure robust tracking even
-    through temporary occlusions, we enhanced a SORT algorithm with a custom
-    re-identification module. The final implementation features a finely-tuned
-    Proportional (P) controller, achieving smooth, real-time tracking with a low
-    system latency of just 1.2 seconds.
-  tags: [ROS, Jetson Nano, SORT, Computer Vision]
-  url:
+    An end-to-end ROS robot that follows a person in real time on embedded
+    hardware. I extended SORT with a custom appearance-based re-identification
+    module to hold the target's identity through occlusions, and deployed the full
+    perception-to-control stack on an NVIDIA Jetson — running at 10–15 FPS with a
+    1.2 s response time.
+  tags: [ROS, Jetson, SORT, Re-ID, Computer Vision]

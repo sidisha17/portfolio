@@ -68,7 +68,7 @@ layout: base
             {% if proj.image %}
               <img src="{{ proj.image | relative_url }}" alt="{{ proj.title }}" loading="lazy">
             {% else %}
-              <span class="placeholder-label">{{ proj.title }}</span>
+              <span class="placeholder-label">{{ proj.placeholder | default: proj.title }}</span>
             {% endif %}
           </div>
           <div class="card-body">
@@ -79,7 +79,13 @@ layout: base
               {% for tag in proj.tags %}<span class="tag">{{ tag }}</span>{% endfor %}
             </div>
             {% endif %}
-            {% if proj.url %}<a class="card-link" href="{{ proj.url | relative_url }}">Read more &#8594;</a>{% endif %}
+            {% if proj.links %}
+            <div class="card-links">
+              {% for link in proj.links %}
+              <a class="card-link" href="{{ link.url | relative_url }}"{% if link.external %} target="_blank" rel="noopener"{% endif %}>{{ link.label }} {% if link.external %}&#8599;{% else %}&#8594;{% endif %}</a>
+              {% endfor %}
+            </div>
+            {% endif %}
           </div>
         </article>
         {% endfor %}
