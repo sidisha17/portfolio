@@ -13,17 +13,10 @@ permalink: /projects/gpu-glmb/
 
 [**Read the paper (arXiv) →**](https://www.arxiv.org/abs/2512.06230)
 
-<!-- DEMO — to use a high-quality video instead of the GIF:
-     1. Drop your clip at  media/gpu_glmb_demo.mp4  (H.264 MP4, muted).
-     2. Replace the blockquote figure below with:
-
-     <figure>
-       <video src="{{ site.baseurl }}/media/gpu_glmb_demo.mp4" autoplay loop muted playsinline></video>
-       <figcaption>Our tracker fusing multiple sensor nodes to follow vehicles in real time.</figcaption>
-     </figure>
--->
-> ![GPU-GLMB live tracking demo]({{ site.baseurl }}/media/glmb_map_gif_2.gif)
-> *Our tracker fusing multiple sensor nodes to follow vehicles in real time across the test area. (A higher-quality video replaces this clip soon.)*
+<figure>
+  <video src="{{ site.baseurl }}/media/gpu_glmb_demo.mp4" autoplay loop muted playsinline controls></video>
+  <figcaption>Our tracker fusing multiple sensor nodes to follow vehicles in real time across the test area.</figcaption>
+</figure>
 
 ## At a glance
 - **Real-time, multi-camera, map-accurate tracking.** Fuses detections from many overlapping camera nodes into a single set of world-space (geospatial) vehicle trajectories — not flat image-plane boxes.
@@ -37,10 +30,8 @@ Picture an area dotted with buildings, each rooftop carrying a **sensor node** �
 
 Now put **many vehicles** in motion through that area. The goal is to take the raw video from every node and, **in real time**, maintain an accurate trajectory for each vehicle in real-world coordinates — continuously fusing what all the sensors see into one coherent picture.
 
-<!-- FIGURE TO ADD: the 3-stage pipeline / problem-setup diagram from the paper (portfolio Fig. 1 or 2).
-     Export it to  media/gpu_glmb_pipeline.png  and enable:
-     > ![From image detections to fused world-space tracks]({{ site.baseurl }}/media/gpu_glmb_pipeline.png)
-     > *Each node detects objects in the image, projects them into world coordinates with uncertainty, and the tracker fuses all nodes into geospatial trajectories.* -->
+> ![From image detections to fused world-space tracks]({{ site.baseurl }}/media/pipeline.png)
+> *Each node detects objects in its own camera view, projects them into world coordinates with uncertainty, and the tracker fuses all nodes into geospatial trajectories.*
 
 On a single node, running frame-by-frame at ~10 fps, the pipeline is:
 
@@ -84,9 +75,6 @@ Speed only matters if the tracks are trustworthy, so we made several deliberate 
 ## Results: real data, real hardware
 This isn't a toy benchmark. We evaluated on **complex vehicle trajectories**, then synthesized convoy-style multi-object scenarios from them — with crossings, vehicles moving in parallel in opposite directions, sharp maneuvers, and genuine blind spots. These scenarios are deliberately *harder* than typical road networks, and far more challenging than the simple datasets GLMB methods are usually demonstrated on.
 
-> ![Test-bed ground-truth trajectories]({{ site.baseurl }}/media/gpu_glmb_groundtruth.png)
-> *High-precision GPS ground truth from the testbed, used to synthesize dense multi-object scenarios.*
-
 **Accuracy.** Even with the approximations that make it fast, the tracker stays accurate — object-count (cardinality) error under **2%** for up to 10 objects, and localization error consistently below **0.15 m**.
 
 > ![Cardinality and tracking-error results]({{ site.baseurl }}/media/gpu_glmb_accuracy.png)
@@ -101,8 +89,7 @@ This isn't a toy benchmark. We evaluated on **complex vehicle trajectories**, th
 At its core this project delivers something unusual: a **mathematically rigorous, fully Bayesian** solution to multi-object tracking that is also **fast, physics-aware, and end-to-end differentiable**. Those last properties are the exciting part:
 
 - **Learnable tracking.** Because the whole filter is differentiable PyTorch, parameters like the motion-model dynamics can be *learned* by backpropagation instead of hand-tuned.
-- **End-to-end perception.** We plan to couple it with a real-time detector (e.g. DETR) and train the *entire* detect-to-track pipeline end to end — while keeping the exact Bayesian tracking core. A pure transformer would have to learn physics from scratch and would not be the exact Bayesian solution; here we get that structure for free.
-- **Toward language-queryable awareness.** The live trajectories are a form of **spatial awareness**. By extending the state with attributes such as object class or color (fused from a vision-language model), the system could answer natural-language questions that mix physics and semantics — for example, *"show me all the red cars currently over the speed limit."* This is the foundation for a **neurosymbolic** perception system.
+- **End-to-end perception.** We plan to couple it with a real-time detector and train the *entire* detect-to-track pipeline end to end — while keeping the exact Bayesian tracking core. A pure transformer would have to learn physics from scratch and would not be the exact Bayesian solution; here we get that structure for free.
 
 A more detailed journal version of this work is currently **in preparation**.
 
