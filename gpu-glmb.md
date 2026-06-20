@@ -85,14 +85,14 @@ Speed only matters if the tracks are trustworthy, so we made several deliberate 
 This isn't a toy benchmark. We evaluated on **complex vehicle trajectories**, then synthesized convoy-style multi-object scenarios from them — with crossings, vehicles moving in parallel in opposite directions, sharp maneuvers, and genuine blind spots. These scenarios are deliberately *harder* than typical road networks, and far more challenging than the simple datasets GLMB methods are usually demonstrated on.
 
 > ![Test-bed ground-truth trajectories]({{ site.baseurl }}/media/gpu_glmb_groundtruth.png)
-> *High-precision GPS ground truth from the ARL testbed, used to synthesize dense multi-object scenarios.*
+> *High-precision GPS ground truth from the testbed, used to synthesize dense multi-object scenarios.*
 
 **Accuracy.** Even with the approximations that make it fast, the tracker stays accurate — object-count (cardinality) error under **2%** for up to 10 objects, and localization error consistently below **0.15 m**.
 
 > ![Cardinality and tracking-error results]({{ site.baseurl }}/media/gpu_glmb_accuracy.png)
 > *(Left) Relative cardinality error stays low. (Right) Tracking error remains stable as the number of hypotheses grows.*
 
-**Speed.** We measured sub-100 ms update latency across a **Dockerized edge (Jetson Orin), consumer (RTX 4090), and server-class (L40S)** stack — and ran it live, tracking real vehicles in the ARL setup. On server GPUs, run-time stays almost flat even as the number of hypotheses climbs.
+**Speed.** We measured sub-100 ms update latency across a **Dockerized edge (Jetson Orin), consumer (RTX 4090), and server-class (L40S)** stack — and ran it live, tracking real vehicles in the setup. On server GPUs, run-time stays almost flat even as the number of hypotheses climbs.
 
 > ![Run-time across GPUs]({{ site.baseurl }}/media/gpu_glmb_runtime.png)
 > *Update time vs. number of hypotheses. Server GPUs stay well under the real-time budget even in the densest scenes.*
