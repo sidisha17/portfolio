@@ -3,16 +3,16 @@
 #         description (optional), links: [{label, url, external}]
 - title: "GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking"
   venue: "IEEE MILCOM 2025"
+  authors: "P. Balakrishnan*, <strong>S. Barik*</strong>, S. M. O'Rourke, B. M. Marlin"
   image: /media/glmb_map_gif_2.gif
   description: >-
-    My work on GPU-GLMB presents the first fully vectorized and scalable
-    implementation of a Random Finite Set (RFS) based multi-sensor GLMB filter. A
-    core innovation was a novel, measurement-focused categorical sampling method
-    that replaces the traditional Gibbs sampling bottleneck, enabling massive
-    parallelization on GPUs. This new architecture is incredibly efficient,
-    demonstrating that a 100x increase in scenario complexity results in only a 3x
-    increase in processing time, making it highly effective for deployment on
-    resource-constrained edge devices.
+    Real-time tracking of every vehicle moving through an area by fusing video
+    from a network of smart camera nodes into accurate, map-aware geospatial
+    trajectories. I re-architected the GLMB filter — the mathematically exact but
+    famously slow gold standard for multi-object tracking — to run fully in
+    parallel on GPUs, reaching sub-100 ms latency from edge devices to servers.
+    Built end-to-end in PyTorch and validated on complex real-world convoy data
+    collected at the U.S. Army Research Laboratory.
   links:
     - label: "Read more"
       url: /projects/gpu-glmb/

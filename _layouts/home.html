@@ -39,6 +39,7 @@ layout: base
           <div class="pub-body">
             {% if pub.venue %}<span class="badge">{{ pub.venue }}</span>{% endif %}
             <h3 class="pub-title">{{ pub.title }}</h3>
+            {% if pub.authors %}<p class="pub-authors">{{ pub.authors }}</p>{% endif %}
             {% if pub.description %}<p class="pub-desc">{{ pub.description }}</p>{% endif %}
             {% if pub.links %}
             <div class="card-links">

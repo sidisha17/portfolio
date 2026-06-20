@@ -1,95 +1,114 @@
 ---
 layout: post
-title: GPU-GLMB - Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
+title: GPU-GLMB — Real-Time Multi-Sensor Vehicle Tracking at the Edge
 permalink: /projects/gpu-glmb/
 ---
 
-## GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking
+# GPU-GLMB: Real-Time Multi-Sensor Vehicle Tracking at the Edge
 
-**Objective:** To develop and evaluate a scalable, GPU-accelerated implementation of the Generalized Labeled Multi-Bernoulli (GLMB) filter that supports multiple detections per object.
+> Turn live video from a network of smart cameras into accurate, map-aware trajectories of **every vehicle moving through an area** — by making the mathematically *exact* gold-standard tracking algorithm run in **real time on a GPU**.
+
+**IEEE MILCOM 2025** &middot; 5th Int'l Workshop on the Internet of Things for Adversarial Environments
+**Authors:** P. Balakrishnan\*, **S. Barik\***, S. M. O'Rourke, B. M. Marlin &middot; *\*equal contribution*
+**Sponsored by the U.S. Army Research Laboratory**
+
+[**Read the paper (arXiv) →**](https://www.arxiv.org/abs/2512.06230)
+
+<!-- DEMO — to use a high-quality video instead of the GIF:
+     1. Drop your clip at  media/gpu_glmb_demo.mp4  (H.264 MP4, muted).
+     2. Replace the blockquote figure below with:
+
+     <figure>
+       <video src="{{ site.baseurl }}/media/gpu_glmb_demo.mp4" autoplay loop muted playsinline></video>
+       <figcaption>Our tracker fusing multiple sensor nodes to follow vehicles in real time.</figcaption>
+     </figure>
+-->
+> ![GPU-GLMB live tracking demo]({{ site.baseurl }}/media/glmb_map_gif_2.gif)
+> *Our tracker fusing multiple sensor nodes to follow vehicles in real time across the test area. (A higher-quality video replaces this clip soon.)*
+
+## At a glance
+- **Real-time, multi-camera, map-accurate tracking.** Fuses detections from many overlapping camera nodes into a single set of world-space (geospatial) vehicle trajectories — not flat image-plane boxes.
+- **Made the gold standard fast.** Re-architected the GLMB filter — the *exact* Bayesian solution to multi-object tracking, but famously too slow for real time — to run **fully in parallel on GPUs**.
+- **Sub-100 ms latency everywhere.** Validated from edge (Jetson Orin) to consumer (RTX 4090) to server (L40S) GPUs, with our custom parallel association up to **~20× faster** than the standard sequential sampler.
+- **Physics- and map-aware.** A vehicle bicycle-kinematics motion model plus road/map constraints keep tracks realistic through occlusions and blind spots.
+- **Differentiable by design.** Implemented end-to-end in PyTorch, opening the door to *learning* the tracker — and ultimately to language-queryable spatial awareness.
+
+## The problem: watching a whole area at once
+Picture an area dotted with buildings, each rooftop carrying a **sensor node** — a camera (alongside other sensors) with its own onboard edge GPU. Together the nodes look down over a shared tracking area, but each one sees only *part* of it: their fields of view overlap in some places and leave **blind spots** in others.
+
+Now put **many vehicles** in motion through that area. The goal is to take the raw video from every node and, **in real time**, maintain an accurate trajectory for each vehicle in real-world coordinates — continuously fusing what all the sensors see into one coherent picture.
+
+<!-- FIGURE TO ADD: the 3-stage pipeline / problem-setup diagram from the paper (portfolio Fig. 1 or 2).
+     Export it to  media/gpu_glmb_pipeline.png  and enable:
+     > ![From image detections to fused world-space tracks]({{ site.baseurl }}/media/gpu_glmb_pipeline.png)
+     > *Each node detects objects in the image, projects them into world coordinates with uncertainty, and the tracker fuses all nodes into geospatial trajectories.* -->
+
+On a single node, running frame-by-frame at ~10 fps, the pipeline is:
+
+1. A **real-time YOLO detector** finds vehicles and returns bounding boxes.
+2. A **probabilistic camera model** projects each box into geospatial coordinates, attaching a covariance that captures how *uncertain* that measurement is.
+3. Each node streams its set of uncertain world-space detections to our **tracker**, which fuses every node and outputs live trajectories.
+
+## Why this is hard
+The hard part of multi-object tracking is **data association** — deciding which detection belongs to which track, frame after frame. At every step the tracker must also allow that tracks may have *left* the area, new vehicles may have *entered*, and existing vehicles may have been *missed* by every sensor. The number of consistent ways to explain a single frame grows **combinatorially**.
+
+Existing approaches each leave a gap:
+
+- **Deep trackers (SORT / DeepSORT)** track in the *image plane* of a *single* camera — they don't fuse multiple sensors or produce world-space trajectories.
+- **MHT / PMBM** and similar methods are largely *heuristic*, without a full probabilistic foundation.
+- **GLMB** is the elegant exception. It models the whole scene as a *random finite set* and is provably an **exact, closed-form Bayesian solution** to multi-object tracking — which is exactly why it's considered the gold standard. The catch: in practice it's **too slow to run in real time**.
+
+Why is GLMB slow? To tame the combinatorial association problem it samples only the most likely hypotheses using a **Gibbs sampler** — and Gibbs sampling is inherently *sequential*, so it can't exploit a GPU.
+
+## Our idea: remove the bottleneck, then parallelize everything
+The Gibbs sampler is there to enforce a classical assumption: *a target generates at most one detection per sensor.* But we feed the tracker **modern deep detectors**, where that assumption routinely breaks — YOLO can fire several boxes for the same vehicle.
+
+We turned that into an opportunity. By **relaxing the one-detection-per-target coupling**, we replaced sequential Gibbs sampling with a **custom parallel categorical sampler (ABA)** that draws many high-likelihood association hypotheses *simultaneously*. From there we **parallelized every stage of the GLMB filter** so the whole pipeline runs on the GPU.
+
+The payoff: the filter went from "too slow for real time" to running **comfortably under the real-time budget** — with the association step alone up to **~20× faster** than Gibbs, and a 100× increase in scenario complexity costing only ~3× more compute.
+
+<!-- FIGURE TO ADD: ABA-vs-Gibbs speedup-by-device bar chart from the paper (portfolio Fig. 3).
+     Export to  media/gpu_glmb_speedup.png  and enable:
+     > ![ABA speedup over Gibbs across devices]({{ site.baseurl }}/media/gpu_glmb_speedup.png)
+     > *Our parallel association (ABA) vs. sequential Gibbs across edge, consumer, and server GPUs.* -->
+
+## Making the tracker robust
+Speed only matters if the tracks are trustworthy, so we made several deliberate choices to keep them physically faithful:
+
+- **Particle-filter state.** Each object's state is represented with a particle filter rather than a Gaussian, giving us the flexibility to encode hard physical rules directly into the distribution.
+- **A real vehicle motion model.** Instead of a generic constant-velocity assumption, we use a **non-linear bicycle-kinematics model** derived for realistic vehicle motion, with a closed-form linearization that keeps the update **differentiable**.
+- **Map and road-network constraints.** Particles are confined to *drivable* space. Approaching a T-intersection, the distribution naturally **splits into "left" and "right" modes** — with *zero* probability mass passing through the building ahead — and collapses back to the correct answer once a detection reappears. This is what lets the tracker **ride through occlusions and blind spots** instead of drifting through walls.
+
+<!-- FIGURE TO ADD (optional): map-constraint / multimodal-at-intersection figure.
+     Export to  media/gpu_glmb_map.png  and enable a blockquote figure here. -->
+
+## Results: real data, real hardware
+This isn't a toy benchmark. We evaluated on **complex vehicle trajectories collected at the U.S. Army Research Laboratory**, then synthesized convoy-style multi-object scenarios from them — with crossings, vehicles moving in parallel in opposite directions, sharp maneuvers, and genuine blind spots. These scenarios are deliberately *harder* than typical road networks, and far more challenging than the simple datasets GLMB methods are usually demonstrated on.
+
+> ![Test-bed ground-truth trajectories]({{ site.baseurl }}/media/gpu_glmb_groundtruth.png)
+> *High-precision GPS ground truth from the ARL testbed, used to synthesize dense multi-object scenarios.*
+
+**Accuracy.** Even with the approximations that make it fast, the tracker stays accurate — object-count (cardinality) error under **2%** for up to 10 objects, and localization error consistently below **0.15 m**.
+
+> ![Cardinality and tracking-error results]({{ site.baseurl }}/media/gpu_glmb_accuracy.png)
+> *(Left) Relative cardinality error stays low. (Right) Tracking error remains stable as the number of hypotheses grows.*
+
+**Speed.** We measured sub-100 ms update latency across a **Dockerized edge (Jetson Orin), consumer (RTX 4090), and server-class (L40S)** stack — and ran it live, tracking real vehicles in the ARL setup. On server GPUs, run-time stays almost flat even as the number of hypotheses climbs.
+
+> ![Run-time across GPUs]({{ site.baseurl }}/media/gpu_glmb_runtime.png)
+> *Update time vs. number of hypotheses. Server GPUs stay well under the real-time budget even in the densest scenes.*
+
+## Why it matters — and what's next
+At its core this project delivers something unusual: a **mathematically rigorous, fully Bayesian** solution to multi-object tracking that is also **fast, physics-aware, and end-to-end differentiable**. Those last properties are the exciting part:
+
+- **Learnable tracking.** Because the whole filter is differentiable PyTorch, parameters like the motion-model dynamics can be *learned* by backpropagation instead of hand-tuned.
+- **End-to-end perception.** We plan to couple it with a real-time detector (e.g. DETR) and train the *entire* detect-to-track pipeline end to end — while keeping the exact Bayesian tracking core. A pure transformer would have to learn physics from scratch and would not be the exact Bayesian solution; here we get that structure for free.
+- **Toward language-queryable awareness.** The live trajectories are a form of **spatial awareness**. By extending the state with attributes such as object class or color (fused from a vision-language model), the system could answer natural-language questions that mix physics and semantics — for example, *"show me all the red cars currently over the speed limit."* This is the foundation for a **neurosymbolic** perception system.
+
+A more detailed journal version of this work is currently **in preparation**.
 
 ---
 
-## 1. Motivation
-Multi-object tracking (MOT) is fundamental to autonomous systems, but rigorous Bayesian approaches face significant computational hurdles.
-* **The Computational Bottleneck:** The standard GLMB filter provides an exact closed-form solution to the multi-target Bayes recursion, but its complexity grows combinatorially with the number of tracks and measurements.
-* **The Sensor Problem:** Standard formulations assume point-target models (at most one detection per object). However, modern computer vision-based sensors often generate multiple overlapping detections for a single object, breaking these assumptions.
-* **The Parallelization Gap:** Existing approximations (like K-best or Gibbs sampling) are inherently sequential, making them poor candidates for GPU acceleration. We aimed to break these dependencies to unlock massive parallelism.
+[**Read the paper (arXiv) →**](https://www.arxiv.org/abs/2512.06230)
 
----
-
-## 2. Approach: A Parallelizable GLMB Filter
-We proposed a modified GLMB filter designed specifically to break the inter-dependence between detections during the hypothesis generation step.
-
-### The Modified Formulation
-Instead of enforcing a strict one-to-one measurement-to-track constraint, we allow multiple detections per object. By ignoring cardinality priors during the proposal generation, we can sample associations from a completely independent proposal distribution.
-
-This allows us to construct the **Joint Compatibility Matrix** $C_k$ in parallel:
-
-$$C_k[i,j] = \begin{cases} g_{ijk} \cdot L(z_{i,k} | x_{j,k}) & \text{for } j=1,\dots,T_k \\ \kappa & \text{for } j=0 \text{ (clutter)} \end{cases}$$
-
-Where $L(z\|x)$ is the measurement likelihood and $\kappa$ is the clutter intensity.
-
-### Parallel Hypothesis Generation
-Because our formulation breaks the coupling between measurement assignments, we can perform the entire update step—including hypothesis generation, weighting, and pruning—as batch operations parallelized across hypotheses, measurements, and tracks.
-
----
-
-## 3. Technical Implementation
-We developed **GPU-GLMB**, a fully vectorized implementation of this tracker.
-* **Framework:** Implemented in Python using **PyTorch** to leverage tensor acceleration on GPUs while remaining accessible for research.
-* **Hardware Tested:** We evaluated scalability across a range of devices:
-    * **Server GPU:** Nvidia L40S, Nvidia 2080Ti
-    * **Edge GPU:** Nvidia Orin NX
-    * **CPU:** Intel 6526Y
-* **Dataset:** We created a benchmark using high-precision GPS ground truth data from the IoBT-MAX testbed, simulating convoys of objects to control density ($N \in \{1, \dots, 20\}$ objects).
-
-> **Visualization of Ground Truth**
->
-> ![Visualization of testbed ground truth track]({{ site.baseurl }}/media/gpu_glmb_groundtruth.png)
-> *Figure: The ground truth trajectory collected using high-precision GPS, used to simulate multi-object scenarios.*
-
----
-
-## 4. Key Results
-
-### Computational Scalability
-Our results demonstrate that the GPU-accelerated implementation dramatically outperforms CPU baselines as the problem size increases.
-* **Real-Time Performance:** The Nvidia L40S GPU maintained an average update time well under the real-time threshold (0.1s) even for the most intensive scenarios (20 objects, 100 hypotheses).
-* **Scaling:** While the Edge GPU (Orin NX) struggled with high object counts, Server GPUs showed excellent scalability, with the L40S exhibiting almost flat run-time growth as the number of hypotheses increased.
-
-> ![demo]({{ site.baseurl }}/media/glmb_map_gif_2.gif)
-> 
-> *Demo of the tracker.*
-
-> **Run Time Analysis**
->
-> ![Time per Update vs Hmax for different GPUs]({{ site.baseurl }}/media/gpu_glmb_runtime.png)
-> *Figure: Update time vs. Maximum Hypotheses ($H_{max}$). The Server GPUs (L40S, 2080Ti) significantly outperform the CPU for scenarios with 5+ objects.*
-
-### Tracking Accuracy
-Despite the approximations required for speed, the tracker maintained high accuracy.
-* **Cardinality Error:** The relative error in estimating the number of objects was less than **2%** for scenarios with up to 10 objects.
-* **Localization Error:** The average tracking error was consistently below **0.15m** across all configurations.
-
-> **Accuracy Metrics**
->
-> ![Cardinality and Tracking Error plots]({{ site.baseurl }}/media/gpu_glmb_accuracy.png)
-> *Figure: (Left) Relative cardinality error remains low (<2%) for most configurations. (Right) Tracking error remains stable regardless of the hypothesis count.*
-
----
-
-## 5. Conclusion
-We successfully demonstrated that by modifying the GLMB formulation to allow multiple detections per object, we can break the dependencies that traditionally force sequential processing. The resulting **GPU-GLMB** tracker leverages modern GPU parallelism to achieve real-time performance on server-class hardware, enabling robust tracking for complex multi-object scenarios.
-
-Future work will focus on integrating this into heterogeneous compute networks, where edge nodes handle detection and server nodes handle fusion.
-
----
-
-### Read the Full Publication
-For the complete derivation of the modified GLMB update and detailed experimental graphs, please refer to the preprint.
-
-[**Download Publication (PDF)**](https://www.arxiv.org/abs/2512.06230)
-
-<br>
-[← Back to Home]({{ site.baseurl }}/)
+[← Back to portfolio]({{ site.baseurl }}/)
