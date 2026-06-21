@@ -15,8 +15,8 @@
   links:
     - label: "Read more"
       url: /projects/gpu-glmb/
-    - label: "arXiv"
-      url: https://www.arxiv.org/abs/2512.06230
+    - label: "Read Paper"
+      url: https://ieeexplore.ieee.org/document/11310500
       external: true
 
 - title: "Improving Target Tracking in Stone Soup via State-Dependent Process Noise Models"
