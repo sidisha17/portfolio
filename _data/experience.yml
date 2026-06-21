@@ -3,13 +3,14 @@
 - role: "Research Extern"
   company: "Google DeepMind"
   description: >-
-    Worked with Google DeepMind on efficient transformer scaling — increasing
-    model capacity without proportional compute growth. I designed controlled
-    pretraining experiments across residual-stream architectures (mHC, VWN,
-    AltUp), built the evaluation framework spanning FLOPs, throughput, and
-    downstream accuracy, and surfaced the practical training-time bottlenecks
-    behind theoretically "free" compute gains — reaching up to a 30.4% downstream
-    improvement at near-constant parameters and FLOPs.
+    Worked with Google DeepMind on efficient transformer scaling — growing a
+    model's representational capacity without the quadratic cost of widening it.
+    I extended a 135M-parameter GPT-2-style baseline with the leading
+    residual-stream methods (mHC, VWN, AltUp), pre-trained them on 13.5B tokens,
+    and produced the first like-for-like comparison of these approaches at small
+    scale — pairing loss and downstream evaluation with a careful FLOPs and
+    throughput cost analysis, plus interpretability probes into how the streams
+    actually behave.
 
 - role: "Senior Analyst, Product Development"
   company: "American Express, India"

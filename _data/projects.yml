@@ -2,8 +2,34 @@
 # Fields: title, image (optional; blank = gradient placeholder),
 #         placeholder (optional label shown on image-less cards),
 #         description, tags: [..], links: [{label, url, external}]
+- title: "Efficient Residual Stream Scaling for Transformers"
+  image: /media/mhc.png
+  description: >-
+    A collaboration with Google DeepMind on a core question in transformer
+    design: can a model gain representational capacity without paying the
+    quadratic cost of simply making it wider? The idea is to widen the residual
+    stream while passing a compact representation into each block, decoupling
+    capacity from compute. On top of a 135M-parameter GPT-2-style baseline
+    (Nanochat), I implemented the leading residual-scaling methods — mHC, VWN, and
+    AltUp — and ran the first head-to-head comparison of them at small scale
+    (pre-trained on 13.5B tokens), measuring not just loss and downstream accuracy
+    but the full cost picture (training and inference FLOPs and wall-clock,
+    including the I/O overhead of the extra streams) and probing the streams to
+    understand where the gains come from.
+  tags: [LLM Pretraining, Transformers, Residual Scaling, Interpretability, PyTorch]
+
+- title: "Autonomous Human Following Robot"
+  image: /media/robot.png
+  description: >-
+    An end-to-end ROS robot that follows a person in real time on embedded
+    hardware. I extended SORT with a custom appearance-based re-identification
+    module to hold the target's identity through occlusions, and deployed the full
+    perception-to-control stack on an NVIDIA Jetson — running at 10–15 FPS with a
+    1.2 s response time.
+  tags: [ROS, Jetson, SORT, Re-ID, Computer Vision]
+
 - title: "Differentiable Particle Filter for Geospatial Tracking"
-  image: /media/pf_vs_apf.png
+  image: /media/pf.png
   description: >-
     A geospatial vehicle tracker built as a fully differentiable particle filter
     in PyTorch — so its motion-model parameters are learned directly by
@@ -17,22 +43,8 @@
     - label: "Read more"
       url: /projects/particle-filter/
 
-- title: "Efficient Residual Stream Scaling for Transformers"
-  image:
-  placeholder: "Google DeepMind"
-  description: >-
-    A collaboration with Google DeepMind on making transformers more capable
-    without paying proportionally more compute. I built a unified PyTorch
-    pretraining pipeline to benchmark residual-stream scaling architectures (mHC,
-    VWN, AltUp) — training 135M-parameter language models on 13.5B tokens — and
-    found up to a 30.4% gain on downstream benchmarks at near-constant parameters
-    and FLOPs, while tracing the runtime bottlenecks (memory access, CUDA
-    kernel-launch overhead) that erode theoretical efficiency.
-  tags: [LLM Pretraining, Transformers, Scaling, PyTorch]
-
 - title: "Spatial Reasoning in Vision-Language Models via JEPA World Models"
-  image:
-  placeholder: "I-JEPA × Qwen2"
+  image: /media/jepa.png
   description: >-
     A vision-language model that reasons about geometry, not just labels: I
     replaced the usual semantic vision encoder with a self-supervised I-JEPA world
@@ -48,7 +60,7 @@
       external: true
 
 - title: "Exploring Noise Schedulers in Diffusion Models"
-  image: /media/cosine.png
+  image: /media/diffusion.png
   description: >-
     An end-to-end study of how the noise schedule shapes diffusion-model training
     and sample quality. I trained 100M-parameter DDPMs from scratch on CIFAR-10
@@ -59,13 +71,3 @@
   links:
     - label: "Read more"
       url: /projects/noise-schedule/
-
-- title: "Autonomous Human Following Robot"
-  image:
-  description: >-
-    An end-to-end ROS robot that follows a person in real time on embedded
-    hardware. I extended SORT with a custom appearance-based re-identification
-    module to hold the target's identity through occlusions, and deployed the full
-    perception-to-control stack on an NVIDIA Jetson — running at 10–15 FPS with a
-    1.2 s response time.
-  tags: [ROS, Jetson, SORT, Re-ID, Computer Vision]
