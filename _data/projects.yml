@@ -1,4 +1,4 @@
-# Projects — shown as a card grid on the homepage.
+# Projects , shown as a card grid on the homepage.
 # Fields: title, image (optional; blank = gradient placeholder),
 #         placeholder (optional label shown on image-less cards),
 #         description, tags: [..], links: [{label, url, external}]
@@ -10,8 +10,8 @@
     quadratic cost of simply making it wider? The idea is to widen the residual
     stream while passing a compact representation into each block, decoupling
     capacity from compute. On top of a 135M-parameter GPT-2-style baseline
-    (Nanochat), I implemented the leading residual-scaling methods — mHC, VWN, and
-    AltUp — and ran the first head-to-head comparison of them at small scale
+    (Nanochat), I implemented the leading residual-scaling methods , mHC, VWN, and
+    AltUp , and ran the first head-to-head comparison of them at small scale
     (pre-trained on 13.5B tokens), measuring not just loss and downstream accuracy
     but the full cost picture (training and inference FLOPs and wall-clock,
     including the I/O overhead of the extra streams) and probing the streams to
@@ -24,7 +24,7 @@
     An end-to-end ROS robot that follows a person in real time on embedded
     hardware. I extended SORT with a custom appearance-based re-identification
     module to hold the target's identity through occlusions, and deployed the full
-    perception-to-control stack on an NVIDIA Jetson — running at 10–15 FPS with a
+    perception-to-control stack on an NVIDIA Jetson , running at 10–15 FPS with a
     1.2 s response time.
   tags: [ROS, Jetson, SORT, Re-ID, Computer Vision]
 
@@ -32,11 +32,11 @@
   image: /media/pf.png
   description: >-
     A geospatial vehicle tracker built as a fully differentiable particle filter
-    in PyTorch — so its motion-model parameters are learned directly by
+    in PyTorch , so its motion-model parameters are learned directly by
     backpropagation instead of hand-tuned. A non-linear CTRV motion model captures
     real vehicle turns, while map-based constraints split the particle
     distribution into valid hypotheses at intersections (left vs. right) rather
-    than letting it drift through walls — keeping tracks physically valid through
+    than letting it drift through walls , keeping tracks physically valid through
     blind spots.
   tags: [Particle Filter, Differentiable, CTRV, Map Constraints, PyTorch]
   links:
@@ -50,8 +50,8 @@
     replaced the usual semantic vision encoder with a self-supervised I-JEPA world
     model and built a feature-translation module to align its geometric
     representations with a Qwen2-7B language model. A two-stage alignment +
-    instruction-tuning pipeline — trained on a single GPU with LoRA and 4-bit
-    quantization — was then evaluated for spatial grounding and hallucination on
+    instruction-tuning pipeline , trained on a single GPU with LoRA and 4-bit
+    quantization , was then evaluated for spatial grounding and hallucination on
     object-permanence benchmarks.
   tags: [VLM, I-JEPA, World Models, LoRA, Qwen2]
   links:

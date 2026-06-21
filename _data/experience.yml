@@ -1,14 +1,14 @@
-# Work experience — shown as a timeline on the homepage (most recent first).
+# Work experience , shown as a timeline on the homepage (most recent first).
 # Fields: role, company, duration (optional), description
 - role: "Research Extern"
   company: "Google DeepMind"
   description: >-
-    Worked with Google DeepMind on efficient transformer scaling — growing a
+    Worked with Google DeepMind on efficient transformer scaling , growing a
     model's representational capacity without the quadratic cost of widening it.
     I extended a 135M-parameter GPT-2-style baseline with the leading
     residual-stream methods (mHC, VWN, AltUp), pre-trained them on 13.5B tokens,
     and produced the first like-for-like comparison of these approaches at small
-    scale — pairing loss and downstream evaluation with a careful FLOPs and
+    scale , pairing loss and downstream evaluation with a careful FLOPs and
     throughput cost analysis, plus interpretability probes into how the streams
     actually behave.
 

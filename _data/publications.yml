@@ -1,4 +1,4 @@
-# Publications — shown as cards on the homepage (newest first).
+# Publications , shown as cards on the homepage (newest first).
 # Fields: title, venue, image (optional; blank = gradient placeholder),
 #         description (optional), links: [{label, url, external}]
 - title: "GPU-GLMB: Assessing the Scalability of GPU-Accelerated Multi-Hypothesis Tracking"
@@ -8,8 +8,8 @@
   description: >-
     Real-time tracking of every vehicle moving through an area by fusing video
     from a network of smart camera nodes into accurate, map-aware geospatial
-    trajectories. I re-architected the GLMB filter — the mathematically exact but
-    famously slow gold standard for multi-object tracking — to run fully in
+    trajectories. I re-architected the GLMB filter , the mathematically exact but
+    famously slow gold standard for multi-object tracking , to run fully in
     parallel on GPUs, reaching sub-100 ms latency from edge devices to servers.
     Built end-to-end in PyTorch and validated on complex real-world convoy data.
   links:
