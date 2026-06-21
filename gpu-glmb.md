@@ -82,13 +82,10 @@ This isn't a toy benchmark. We evaluated on **complex vehicle trajectories**, th
 
 **Speed.** We measured sub-100 ms update latency across a **Dockerized edge (Jetson Orin), consumer (RTX 4090), and server-class (L40S)** stack , and ran it live, tracking real vehicles in the setup. On server GPUs, run-time stays almost flat even as the number of hypotheses climbs.
 
-## Why it matters , and what's next
-At its core this project delivers something unusual: a **mathematically rigorous, fully Bayesian** solution to multi-object tracking that is also **fast, physics-aware, and end-to-end differentiable**. Those last properties are the exciting part:
+## Why it matters, and what's next
+At its core this project delivers something unusual: a **mathematically rigorous, fully Bayesian** solution to multi-object tracking that is also **fast, physics-aware, and end-to-end differentiable**. Most trackers trade rigor for speed or speed for rigor; holding all of these at once is what makes this a *foundation* to build on rather than a one-off result.
 
-- **Learnable tracking.** Because the whole filter is differentiable PyTorch, parameters like the motion-model dynamics can be *learned* by backpropagation instead of hand-tuned.
-- **End-to-end perception.** We plan to couple it with a real-time detector and train the *entire* detect-to-track pipeline end to end , while keeping the exact Bayesian tracking core. A pure transformer would have to learn physics from scratch and would not be the exact Bayesian solution; here we get that structure for free.
-
-A more detailed journal version of this work is currently **in preparation**.
+Because the filter is differentiable and GPU-native, it opens up directions that conventional, black-box trackers simply can't reach. Several of these are the focus of active, ongoing research, with a more detailed journal version of this work currently **in preparation**.
 
 ---
 

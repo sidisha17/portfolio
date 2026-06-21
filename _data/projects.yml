@@ -29,10 +29,6 @@
     and FLOPs, while tracing the runtime bottlenecks (memory access, CUDA
     kernel-launch overhead) that erode theoretical efficiency.
   tags: [LLM Pretraining, Transformers, Scaling, PyTorch]
-  links:
-    - label: "Report (PDF)"
-      url: /material/2026_698DS_Residual_Stream_Widening.pdf
-      external: true
 
 - title: "Spatial Reasoning in Vision-Language Models via JEPA World Models"
   image:
