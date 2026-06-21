@@ -10,7 +10,7 @@
     quadratic cost of simply making it wider? The idea is to widen the residual
     stream while passing a compact representation into each block, decoupling
     capacity from compute. On top of a 135M-parameter GPT-2-style baseline
-    (Nanochat), I implemented the leading residual-scaling methods , mHC, VWN, and
+    (Nanochat), we implemented the leading residual-scaling methods, mHC, VWN, and
     AltUp , and ran the first head-to-head comparison of them at small scale
     (pre-trained on 13.5B tokens), measuring not just loss and downstream accuracy
     but the full cost picture (training and inference FLOPs and wall-clock,
@@ -22,7 +22,7 @@
   image: /media/robot.png
   description: >-
     An end-to-end ROS robot that follows a person in real time on embedded
-    hardware. I extended SORT with a custom appearance-based re-identification
+    hardware. We extended SORT with a custom appearance-based re-identification
     module to hold the target's identity through occlusions, and deployed the full
     perception-to-control stack on an NVIDIA Jetson , running at 10–15 FPS with a
     1.2 s response time.
