@@ -12,28 +12,31 @@
     throughput cost analysis, plus interpretability probes into how the streams
     actually behave.
 
-- role: "Senior Analyst, Product Development"
+- role: "Senior Analyst, Credit & Fraud Risk | Data & ML Engineering"
   company: "American Express, India"
   duration: "Aug 2022 – May 2024"
   description: >-
-    As a Senior Analyst, I played a key role in enhancing a critical
-    XGBoost-based credit risk model. By orchestrating a deep analysis of its
-    performance and collaborating with the Data Science team, my work directly
-    contributed to the recovery of $14.7MM through improved default prediction. I
-    engineered the end-to-end ETL pipelines that served as the model's foundation,
-    sourcing data from multiple systems to create novel features, and architected
-    an automated daily reporting system to continuously monitor live performance
-    and mitigate data drift.
+    I worked on Amex's XGBoost credit-risk model, which scores how likely
+    customers are to default. I traced and fixed issues in the upstream "smart"
+    feature databases (themselves built from complex aggregations of many raw
+    sources), engineered new predictive features, and assembled the training
+    datasets used to retrain the model, work that contributed to $14.7M in
+    recoveries through better default-risk identification. After deployment, I
+    built an automated monitoring system that continuously compares predicted
+    against actual default rates and alerts leadership the moment they diverge, so
+    accuracy regressions and data drift could be caught and corrected quickly.
 
-- role: "Programmer Analyst, Product Development"
+- role: "Programmer Analyst, Credit & Fraud Risk | Data & ML Engineering"
   company: "American Express, India"
   duration: "Aug 2020 – Jul 2022"
   description: >-
-    In this role, I led a team of seven in a complex migration project, moving
-    over 300 critical credit decision variables from a legacy Teradata system to a
-    modern Hadoop framework. This initiative was a major success, culminating in
-    the decommissioning of the legacy infrastructure and achieving $50MM in annual
-    operational cost savings. I also spearheaded the migration of the
-    mission-critical Merchant Exposure Calculation system to a scalable big data
-    platform, an achievement that reduced data processing time by 25% and earned me
-    the Q2 Star Award for its technical excellence and business impact.
+    I owned the migration of Amex's merchant exposure-calculation system, the
+    engine that estimates how much money is at risk when a merchant may not
+    deliver. (A clear example is an airline ticket: Amex pays at purchase, but if
+    the airline goes bankrupt before the customer flies, Amex has to refund the
+    cardholders.) I moved millions of records from roughly 20 raw sources
+    (credit-bureau data, airline-ticket data, transaction feeds, and more) onto a
+    Hadoop big-data platform using PySpark and Hive, then re-implemented the
+    intricate aggregation logic behind around 20 exposure components spanning some
+    200K merchants. Retiring the legacy system saved the company about $45M while
+    giving downstream credit-risk models cleaner, more scalable inputs.
