@@ -20,10 +20,10 @@ permalink: /projects/gpu-glmb/
 
 ## At a glance
 - **Real-time, multi-camera, map-accurate tracking.** Fuses detections from many overlapping camera nodes into a single set of world-space (geospatial) vehicle trajectories, not flat image-plane boxes.
-- **Made the gold standard fast.** Re-architected the GLMB filter, the *exact* Bayesian solution to multi-object tracking, but famously too slow for real time, to run **fully in parallel on GPUs**.
+- **Made the tracker work real time.** Re-architected the GLMB filter, the *exact* Bayesian solution to multi-object tracking, but famously too slow for real time, to run **fully in parallel on GPUs**.
 - **Sub-100 ms latency everywhere.** Validated from edge (Jetson Orin) to consumer (RTX 4090) to server (L40S) GPUs, with our custom parallel association up to **~20× faster** than the standard sequential sampler.
 - **Physics- and map-aware.** A vehicle bicycle-kinematics motion model plus road/map constraints keep tracks realistic through occlusions and blind spots.
-- **Differentiable by design.** Implemented end-to-end in PyTorch, opening the door to *learning* the tracker, and ultimately to language-queryable spatial awareness.
+<!-- - **Differentiable by design.** Implemented end-to-end in PyTorch, opening the door to *learning* the tracker, and ultimately to language-queryable spatial awareness. -->
 
 ## The problem: watching a whole area at once
 Picture an area dotted with buildings, each rooftop carrying a **sensor node**, a camera (alongside other sensors) with its own onboard edge GPU. Together the nodes look down over a shared tracking area, but each one sees only *part* of it: their fields of view overlap in some places and leave **blind spots** in others.
@@ -46,7 +46,7 @@ Existing approaches each leave a gap:
 
 - **Deep trackers (SORT / DeepSORT)** track in the *image plane* of a *single* camera, they don't fuse multiple sensors or produce world-space trajectories.
 - **MHT / PMBM** and similar methods are largely *heuristic*, without a full probabilistic foundation.
-- **GLMB** is the elegant exception. It models the whole scene as a *random finite set* and is provably an **exact, closed-form Bayesian solution** to multi-object tracking, which is exactly why it's considered the gold standard. The catch: in practice it's **too slow to run in real time**.
+- **GLMB** is the elegant exception. It models the whole scene as a *random finite set* and is provably an **exact, closed-form Bayesian solution** to multi-object tracking. The catch: in practice it's **too slow to run in real time**.
 
 Why is GLMB slow? To tame the combinatorial association problem it samples only the most likely hypotheses using a **Gibbs sampler**, and Gibbs sampling is inherently *sequential*, so it can't exploit a GPU.
 
@@ -55,7 +55,7 @@ The Gibbs sampler is there to enforce a classical assumption: *a target generate
 
 We turned that into an opportunity. By **relaxing the one-detection-per-target coupling**, we replaced sequential Gibbs sampling with a **custom parallel categorical sampler (ABA)** that draws many high-likelihood association hypotheses *simultaneously*. From there we **parallelized every stage of the GLMB filter** so the whole pipeline runs on the GPU.
 
-The payoff: the filter went from "too slow for real time" to running **comfortably under the real-time budget**, with the association step alone up to **~20× faster** than Gibbs, and a 100× increase in scenario complexity costing only ~3× more compute.
+<!-- The payoff: the filter went from "too slow for real time" to running **comfortably under the real-time budget**, with the association step alone up to **~20× faster** than Gibbs, and a 100× increase in scenario complexity costing only ~3× more compute. -->
 
 <!-- FIGURE TO ADD: ABA-vs-Gibbs speedup-by-device bar chart from the paper (portfolio Fig. 3).
      Export to  media/gpu_glmb_speedup.png  and enable:
